@@ -1,0 +1,93 @@
+<!doctype html><html lang="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Resultat og quiz – ModHavn</title><link rel="stylesheet" href="modhavn.css">
+<style>
+.q{border:1px solid var(--line);border-radius:10px;padding:14px;margin:14px 0;background:var(--panel2)}
+.q h4{margin:0 0 10px}
+.opt{display:block;width:100%;text-align:left;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:6px 0;cursor:pointer;font-size:15px}
+.opt:hover{border-color:var(--green)}
+.opt.good{border-color:var(--green);background:#12331f}.opt.bad{border-color:#e05555;background:#3a1c1c}
+.exp{font-size:14px;color:#c3cad4;margin-top:8px}
+.big{font-size:42px;font-weight:800;color:var(--green)}
+.list li{margin:6px 0}
+</style></head><body>
+<header class="top"><div class="wrap nav"><a class="logo" href="index.html"><i></i>ModHavn</a><a class="l" href="index.html">Til forsiden</a></div></header>
+<main class="wrap" style="max-width:800px;margin-top:24px">
+<div class="box">
+  <h1 style="margin-top:0">✅ Du fant den ekte lenken!</h1>
+  <p id="summary"></p>
+  <h2>Slik kjenner du igjen en falsk nedlastingslenke</h2>
+  <ul class="list">
+    <li><b>Les adressen.</b> Hold musepekeren over knappen. Går den til et annet domene enn siden du er på?</li>
+    <li><b>Sjekk filtypen.</b> En Minecraft-mod er en <code>.jar</code>. En <code>.exe</code>, <code>.msi</code> eller <code>.bat</code> er en rød flagg.</li>
+    <li><b>Se etter «Annonse».</b> Store, fargerike «Download»-knapper er ofte reklame.</li>
+    <li><b>Ikke stol på varsler.</b> Nettsider kan ikke vite om PC-en din har virus.</li>
+    <li><b>Gå til kilden.</b> Last helst ned fra modens offisielle side og unngå mellomsider med mye reklame.</li>
+    <li><b>Ingen «må installere kodek/oppdatering/nedlastingsbehandler».</b> Det trenger du ikke.</li>
+  </ul>
+  <a class="btn" id="again" href="download.html">Prøv igjen</a>
+</div>
+
+<div class="box" style="margin-top:20px">
+  <h2 style="margin-top:0">Quiz: Har du skjønt det?</h2>
+  <div id="quiz"></div>
+  <div id="final" hidden><div class="big" id="score"></div><p id="msg"></p><a class="btn" href="index.html">Last ned en annen mod</a></div>
+</div>
+</main>
+<footer><div class="wrap">Et skoleprosjekt om sikker nedlasting av filer · Blokhus, Gudmundsen, Helland, Søbstad</div></footer>
+<script src="common.js"></script>
+<script>
+const fakes = store.get('fakeClicks', 0);
+document.getElementById('again').href = 'download.html?id=' + store.get('lastMod', 'super-diamant-plus');
+document.getElementById('summary').textContent = fakes === 0
+  ? 'Du fant den på første forsøk uten å klikke på en eneste falsk knapp. Imponerende!'
+  : 'Du klikket på ' + fakes + ' falsk' + (fakes === 1 ? ' knapp' : 'e knapper') + ' før du fant den ekte. Det er helt normalt, og nettopp slike knapper er laget for å lure folk.';
+
+const Q = [
+ {q:'Du skal laste ned en mod, og en stor grønn knapp sier «START NEDLASTING». Hva gjør du først?',
+  o:['Klikker, den er jo stor og tydelig','Holder musepekeren over den og leser adressen','Skrur av antivirus så nedlastingen går raskere'],a:1,
+  e:'Adressen nederst i nettleseren viser hvor lenken faktisk går. Stor og tydelig betyr ikke trygg.'},
+ {q:'Hvilken filtype forventer du for en Minecraft-mod?',
+  o:['.exe','.jar','.bat'],a:1,
+  e:'Moder er .jar-filer. Kjørbare filer som .exe og .bat skal du ikke få når du leter etter en mod.'},
+ {q:'En side viser «7 virus funnet på PC-en din! Klikk her». Hva betyr det?',
+  o:['Du må skanne umiddelbart','Det er et falskt varsel, nettsider kan ikke skanne PC-en din','Nettleseren din er ødelagt'],a:1,
+  e:'Dette er en skremmetaktikk. Lukk fanen og ikke klikk på noe i varselet.'},
+ {q:'Hva betyr den lille teksten «Annonse» ved siden av en knapp?',
+  o:['Knappen er laget av sidens eier og er trygg','Det er reklame, og ikke den ekte nedlastingen','Filen er verifisert'],a:1,
+  e:'Annonser kan se ut som nedlastingsknapper, men de leder til tredjeparter.'},
+ {q:'Siden sier «Du må installere en kodek / nedlastingsbehandler for å laste ned». Hva gjør du?',
+  o:['Installerer den, det går raskt','Avslutter og finner en annen kilde','Gir den administratortilgang'],a:1,
+  e:'En vanlig fil trenger ikke ekstra programvare. Slike krav er et tydelig varselstegn.'},
+ {q:'Hva er tryggest?',
+  o:['Laste ned fra modens offisielle side','Laste ned fra den første lenken i et søk','Laste ned fra en lenke i en tilfeldig kommentar'],a:0,
+  e:'Gå til kilden. Jo færre mellomsider, desto mindre risiko.'}
+];
+let i = 0, score = 0;
+const box = document.getElementById('quiz');
+function show() {
+  if (i >= Q.length) {
+    box.hidden = true; document.getElementById('final').hidden = false;
+    document.getElementById('score').textContent = score + ' / ' + Q.length;
+    document.getElementById('msg').textContent = score >= 5 ? 'Flott! Du er godt rustet mot falske nedlastingsknapper.' : score >= 3 ? 'Bra jobbet, men les gjennom tipsene over en gang til.' : 'Les tipsene over og prøv øvingssiden en gang til.';
+    return;
+  }
+  const c = Q[i];
+  box.innerHTML = '<div class="q"><small style="color:var(--mute)">Spørsmål ' + (i + 1) + ' av ' + Q.length + '</small><h4></h4><div id="opts"></div><div class="exp" id="exp"></div></div>';
+  box.querySelector('h4').textContent = c.q;
+  c.o.forEach((t, k) => {
+    const b = document.createElement('button'); b.className = 'opt'; b.textContent = t;
+    b.onclick = () => answer(k); box.querySelector('#opts').appendChild(b);
+  });
+}
+function answer(k) {
+  const c = Q[i], btns = [...box.querySelectorAll('.opt')];
+  btns.forEach((b, n) => { b.disabled = true; if (n === c.a) b.classList.add('good'); else if (n === k) b.classList.add('bad'); });
+  if (k === c.a) score++;
+  const ex = document.getElementById('exp');
+  ex.textContent = (k === c.a ? 'Riktig! ' : 'Ikke helt. ') + c.e + ' ';
+  const nx = document.createElement('button'); nx.className = 'btn'; nx.style.marginTop = '10px';
+  nx.textContent = i === Q.length - 1 ? 'Se resultat' : 'Neste'; nx.onclick = () => { i++; show(); };
+  ex.appendChild(document.createElement('br')); ex.appendChild(nx);
+}
+show();
+</script></body></html>
