@@ -1,14 +1,47 @@
-<!doctype html><html lang="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ModHavn – Treningsområde for trygg nedlasting</title><link rel="stylesheet" href="modhavn.css"></head><body>
-<header id="hdr"></header>
-<section class="banner"><div class="wrap"><h1>Finn mods til Minecraft</h1>
-<p>ModHavn er en <b>øvingsside</b> laget i et cybersikkerhetsprosjekt. Velg en mod, last den ned, og se om du klarer å finne den ekte nedlastingslenken på veien.</p></div></section>
-<main class="wrap">
-<div class="rh"><h2 id="title"></h2><span class="tag" id="count"></span></div>
-<div class="grid" id="grid"></div>
-<div class="note">Ingen ekte filer lastes ned, og ingenting installeres på maskinen din. Alle mods på siden er fiktive.</div></main>
-<footer><div class="wrap">Et skoleprosjekt om sikker nedlasting av filer · Blokhus, Gudmundsen, Helland, Søbstad</div></footer>
-<script src="data.js"></script><script src="common.js"></script>
+---
+
+---
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      ModHavn – Treningsområde for trygg nedlasting
+    </title>
+    <link rel="stylesheet" href="modhavn.css">
+  </head>
+  <body>
+    <header id="hdr"></header>
+    <section class="banner">
+      <div class="wrap">
+        <h1>Finn mods til Minecraft</h1>
+        <p>
+          ModHavn er en <b>øvingsside</b> laget i et cybersikkerhetsprosjekt. Velg 
+          en mod, last den ned, og se om du klarer å finne den ekte 
+          nedlastingslenken på veien.
+        </p>
+      </div>
+    </section>
+    <main class="wrap">
+      <div class="rh">
+        <h2 id="title"></h2>
+        <span class="tag" id="count">
+        </span>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div class="note">
+        Ingen ekte filer lastes ned, og ingenting installeres på maskinen din. 
+        Alle mods på siden er fiktive.
+      </div>
+    </main>
+    <footer>
+      <div class="wrap">
+        Et skoleprosjekt om sikker nedlasting av filer · Blokhus, Gudmundsen, 
+        Helland, Søbstad
+      </div>
+    </footer>
+<script src="data.js"></script>
+<script src="common.js"></script>
 <script>
 const params = new URLSearchParams(location.search);
 const type = TYPES[params.get('type')] ? params.get('type') : '';
@@ -38,4 +71,6 @@ list.forEach(m => {
   });
   a.append(ic, d); grid.appendChild(a);
 });
-</script></body></html>
+</script>
+  </body>
+</html>

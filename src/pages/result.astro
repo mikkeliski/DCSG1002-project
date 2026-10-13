@@ -1,39 +1,51 @@
-<!doctype html><html lang="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Resultat og quiz – ModHavn</title><link rel="stylesheet" href="modhavn.css">
-<style>
-.q{border:1px solid var(--line);border-radius:10px;padding:14px;margin:14px 0;background:var(--panel2)}
-.q h4{margin:0 0 10px}
-.opt{display:block;width:100%;text-align:left;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:6px 0;cursor:pointer;font-size:15px}
-.opt:hover{border-color:var(--green)}
-.opt.good{border-color:var(--green);background:#12331f}.opt.bad{border-color:#e05555;background:#3a1c1c}
-.exp{font-size:14px;color:#c3cad4;margin-top:8px}
-.big{font-size:42px;font-weight:800;color:var(--green)}
-.list li{margin:6px 0}
-</style></head><body>
-<header class="top"><div class="wrap nav"><a class="logo" href="index.html"><i></i>ModHavn</a><a class="l" href="index.html">Til forsiden</a></div></header>
-<main class="wrap" style="max-width:800px;margin-top:24px">
-<div class="box">
-  <h1 style="margin-top:0">✅ Du fant den ekte lenken!</h1>
-  <p id="summary"></p>
-  <h2>Slik kjenner du igjen en falsk nedlastingslenke</h2>
-  <ul class="list">
-    <li><b>Les adressen.</b> Hold musepekeren over knappen. Går den til et annet domene enn siden du er på?</li>
-    <li><b>Sjekk filtypen.</b> En Minecraft-mod er en <code>.jar</code>. En <code>.exe</code>, <code>.msi</code> eller <code>.bat</code> er en rød flagg.</li>
-    <li><b>Se etter «Annonse».</b> Store, fargerike «Download»-knapper er ofte reklame.</li>
-    <li><b>Ikke stol på varsler.</b> Nettsider kan ikke vite om PC-en din har virus.</li>
-    <li><b>Gå til kilden.</b> Last helst ned fra modens offisielle side og unngå mellomsider med mye reklame.</li>
-    <li><b>Ingen «må installere kodek/oppdatering/nedlastingsbehandler».</b> Det trenger du ikke.</li>
-  </ul>
-  <a class="btn" id="again" href="download.html">Prøv igjen</a>
-</div>
-
-<div class="box" style="margin-top:20px">
-  <h2 style="margin-top:0">Quiz: Har du skjønt det?</h2>
-  <div id="quiz"></div>
-  <div id="final" hidden><div class="big" id="score"></div><p id="msg"></p><a class="btn" href="index.html">Last ned en annen mod</a></div>
-</div>
-</main>
-<footer><div class="wrap">Et skoleprosjekt om sikker nedlasting av filer · Blokhus, Gudmundsen, Helland, Søbstad</div></footer>
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Resultat og quiz – ModHavn</title>
+    <link rel="stylesheet" href="modhavn.css">
+  <style>
+    .q{border:1px solid var(--line);border-radius:10px;padding:14px;margin:14px 0;background:var(--panel2)}
+    .q h4{margin:0 0 10px}
+    .opt{display:block;width:100%;text-align:left;background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:6px 0;cursor:pointer;font-size:15px}
+    .opt:hover{border-color:var(--green)}
+    .opt.good{border-color:var(--green);background:#12331f}.opt.bad{border-color:#e05555;background:#3a1c1c}
+    .exp{font-size:14px;color:#c3cad4;margin-top:8px}
+    .big{font-size:42px;font-weight:800;color:var(--green)}
+    .list li{margin:6px 0}
+  </style>
+    </head>
+    <body>
+      <header class="top">
+        <div class="wrap nav">
+          <a class="logo" href="index.html"><i></i>ModHavn</a>
+          <a class="l" href="index.html">Til forsiden</a></div>
+      </header>
+      <main class="wrap" style="max-width:800px;margin-top:24px">
+        <div class="box">
+          <h1 style="margin-top:0">✅ Du fant den ekte lenken!</h1>
+          <p id="summary"></p>
+          <h2>Slik kjenner du igjen en falsk nedlastingslenke</h2>
+          <ul class="list">
+            <li><b>Les adressen.</b> Hold musepekeren over knappen. Går den til et annet domene enn siden du er på?</li>
+            <li><b>Sjekk filtypen.</b> En Minecraft-mod er en <code>.jar</code>. En <code>.exe</code>, <code>.msi</code> eller <code>.bat</code> er en rød flagg.</li>
+            <li><b>Se etter «Annonse».</b> Store, fargerike «Download»-knapper er ofte reklame.</li>
+            <li><b>Ikke stol på varsler.</b> Nettsider kan ikke vite om PC-en din har virus.</li>
+            <li><b>Gå til kilden.</b> Last helst ned fra modens offisielle side og unngå mellomsider med mye reklame.</li>
+            <li><b>Ingen «må installere kodek/oppdatering/nedlastingsbehandler».</b> Det trenger du ikke.</li>
+          </ul>
+          <a class="btn" id="again" href="download.html">Prøv igjen</a>
+        </div>
+        <div class="box" style="margin-top:20px">
+          <h2 style="margin-top:0">Quiz: Har du skjønt det?</h2>
+          <div id="quiz"></div>
+          <div id="final" hidden>
+            <div class="big" id="score"></div>
+            <p id="msg"></p><a class="btn" href="index.html">Last ned en annen mod</a></div></div>
+      </main>
+      <footer>
+        <div class="wrap">Et skoleprosjekt om sikker nedlasting av filer · Blokhus, Gudmundsen, Helland, Søbstad</div>
+      </footer>
 <script src="common.js"></script>
 <script>
 const fakes = store.get('fakeClicks', 0);
@@ -90,4 +102,6 @@ function answer(k) {
   ex.appendChild(document.createElement('br')); ex.appendChild(nx);
 }
 show();
-</script></body></html>
+</script>
+  </body>
+</html>

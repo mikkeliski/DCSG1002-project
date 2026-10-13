@@ -1,9 +1,23 @@
-<!doctype html><html lang="no"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ModHavn</title><link rel="stylesheet" href="modhavn.css"></head><body>
-<header id="hdr"></header>
-<main class="wrap" id="main"></main>
-<footer><div class="wrap">Et skoleprosjekt om sikker nedlasting av filer · Blokhus, Gudmundsen, Helland, Søbstad</div></footer>
-<script src="data.js"></script><script src="common.js"></script>
+---
+---
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ModHavn</title>
+    <link rel="stylesheet" href="modhavn.css">
+  </head>
+  <body>
+    <header id="hdr"></header>
+    <main class="wrap" id="main"></main>
+    <footer>
+      <div class="wrap">
+        Et skoleprosjekt om sikker nedlasting av filer · Blokhus, Gudmundsen, 
+        Helland, Søbstad
+      </div>
+    </footer>
+<script src="data.js"></script>
+<script src="common.js"></script>
 <script>
 const m = MODS.find(x => x.id === new URLSearchParams(location.search).get('id'));
 renderHeader(m ? m.type : '');

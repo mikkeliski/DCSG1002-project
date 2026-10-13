@@ -1,5 +1,12 @@
 {
   "dependencies": {
-    "astro": "^7.3.8"
+    "@astrojs/check": "^0.9.10",
+    "astro": "^7.3.8",
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   }
 }
