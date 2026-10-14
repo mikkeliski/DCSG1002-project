@@ -1,0 +1,17 @@
+---
+
+---
+
+<header>
+  <header id="hdr"></header>
+</header>
+
+function renderHeader(active, q) {
+  const links = [['mods', 'Mods'], ['modpacks', 'Modpakker'], ['resourcepacks', 'Teksturpakker'], ['shaders', 'Shaders']]
+    .map(([t, l]) => '<a class="l' + (active === t ? ' on' : '') + '" href="index.html?type=' + t + '">' + l + '</a>').join('');
+  const h = document.getElementById('hdr');
+  h.className = 'top';
+  h.innerHTML = '<div class="wrap nav"><a class="logo" href="index.html"><i></i>ModHavn</a>' + links +
+    '<form action="index.html" method="get" class="sf"><input name="q" type="search" placeholder="Søk etter mods…" autocomplete="off"></form></div>';
+  h.querySelector('input').value = q || '';
+}

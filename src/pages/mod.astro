@@ -1,47 +1,35 @@
 ---
+import { Global } from '@components/Global.astro';
 ---
-<html lang="no">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>ModHavn</title>
-    <link rel="stylesheet" href="modhavn.css">
-  </head>
-  <body>
-    <header id="hdr"></header>
-    <main class="wrap" id="main"></main>
-    <footer>
-      <div class="wrap">
-        Et skoleprosjekt om sikker nedlasting av filer · Blokhus, Gudmundsen, 
-        Helland, Søbstad
-      </div>
-    </footer>
-<script src="data.js"></script>
-<script src="common.js"></script>
-<script>
-const m = MODS.find(x => x.id === new URLSearchParams(location.search).get('id'));
-renderHeader(m ? m.type : '');
-const main = document.getElementById('main');
-if (!m) {
-  main.innerHTML = '<div class="empty"><h2>Fant ikke denne siden</h2><a class="btn" href="index.html">Til forsiden</a></div>';
-} else {
-  document.title = m.name + ' – ModHavn';
-  const t = TYPES[m.type];
-  const dlUrl = 'https://modhavn.example/' + m.type + '/' + m.id + '/download';
-  main.innerHTML =
-   '<div class="hero"><div class="icon" style="background:' + m.color + '">' + m.icon + '</div><div><h1></h1>' +
-   '<p style="color:var(--mute);margin:4px 0 8px" id="d"></p><span class="tag">' + t.label + '</span>' +
-   (m.loader !== '–' ? '<span class="tag">' + m.loader + '</span>' : '') +
-   '<span class="tag">' + m.ver + '</span><span class="tag">⬇ ' + m.dls.toLocaleString('nb-NO') + '</span><span class="tag">★ ' + m.stars.toLocaleString('nb-NO') + '</span></div></div>' +
-   '<div class="layout"><div class="box"><div class="tabs"><span class="on">Beskrivelse</span><span>Filer</span><span>Bilder</span><span>Endringslogg</span></div>' +
-   '<h2>Om ' + (m.type === 'mods' ? 'modden' : 'pakken') + '</h2><p id="l"></p><div class="shot">' + m.shot + '</div><h2>Funksjoner</h2><ul id="f"></ul>' +
-   '<div class="note">💡 <b>Tips:</b> Dette er ModHavns egen side. Hold musepekeren over en lenke og se på adressen nederst til venstre før du klikker.</div></div>' +
-   '<aside><div class="box"><a class="btn block" id="dl" href="download.html?id=' + m.id + '" data-url="' + dlUrl + '">⬇ Last ned</a>' +
-   '<dl><dt>Versjon</dt><dd>' + m.v + '</dd><dt>Filstørrelse</dt><dd>' + m.size + '</dd><dt>Utgitt</dt><dd>' + m.date + '</dd><dt>Forfatter</dt><dd id="a"></dd><dt>Lisens</dt><dd>MIT</dd></dl></div></aside></div>';
-  main.querySelector('h1').textContent = m.name;
-  document.getElementById('d').textContent = m.desc;
-  document.getElementById('l').textContent = m.long;
-  document.getElementById('a').textContent = m.author + ' ✔ verifisert';
-  m.feat.forEach(x => { const li = document.createElement('li'); li.textContent = x; document.getElementById('f').appendChild(li); });
-}
-</script></body></html>
+<Global title="ModHavn">
+  <main class="wrap" id="main"></main>
+  <script src="data.js"></script>
+  <script src="common.js"></script>
+  <script>
+  const m = MODS.find(x => x.id === new URLSearchParams(location.search).get('id'));
+  renderHeader(m ? m.type : '');
+  const main = document.getElementById('main');
+  if (!m) {
+    main.innerHTML = '<div class="empty"><h2>Fant ikke denne siden</h2><a class="btn" href="index.html">Til forsiden</a></div>';
+  } else {
+    document.title = m.name + ' – ModHavn';
+    const t = TYPES[m.type];
+    const dlUrl = 'https://modhavn.example/' + m.type + '/' + m.id + '/download';
+    main.innerHTML =
+     '<div class="hero"><div class="icon" style="background:' + m.color + '">' + m.icon + '</div><div><h1></h1>' +
+     '<p style="color:var(--mute);margin:4px 0 8px" id="d"></p><span class="tag">' + t.label + '</span>' +
+     (m.loader !== '–' ? '<span class="tag">' + m.loader + '</span>' : '') +
+     '<span class="tag">' + m.ver + '</span><span class="tag">⬇ ' + m.dls.toLocaleString('nb-NO') + '</span><span class="tag">★ ' + m.stars.toLocaleString('nb-NO') + '</span></div></div>' +
+     '<div class="layout"><div class="box"><div class="tabs"><span class="on">Beskrivelse</span><span>Filer</span><span>Bilder</span><span>Endringslogg</span></div>' +
+     '<h2>Om ' + (m.type === 'mods' ? 'modden' : 'pakken') + '</h2><p id="l"></p><div class="shot">' + m.shot + '</div><h2>Funksjoner</h2><ul id="f"></ul>' +
+     '<div class="note">💡 <b>Tips:</b> Dette er ModHavns egen side. Hold musepekeren over en lenke og se på adressen nederst til venstre før du klikker.</div></div>' +
+     '<aside><div class="box"><a class="btn block" id="dl" href="download.html?id=' + m.id + '" data-url="' + dlUrl + '">⬇ Last ned</a>' +
+     '<dl><dt>Versjon</dt><dd>' + m.v + '</dd><dt>Filstørrelse</dt><dd>' + m.size + '</dd><dt>Utgitt</dt><dd>' + m.date + '</dd><dt>Forfatter</dt><dd id="a"></dd><dt>Lisens</dt><dd>MIT</dd></dl></div></aside></div>';
+    main.querySelector('h1').textContent = m.name;
+    document.getElementById('d').textContent = m.desc;
+    document.getElementById('l').textContent = m.long;
+    document.getElementById('a').textContent = m.author + ' ✔ verifisert';
+    m.feat.forEach(x => { const li = document.createElement('li'); li.textContent = x; document.getElementById('f').appendChild(li); });
+  }
+  </script>
+</Global>

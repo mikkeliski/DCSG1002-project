@@ -1,0 +1,19 @@
+---
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+const { title } = Astro.props;
+---
+
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{title}</title>
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>
+ 
