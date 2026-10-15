@@ -4,8 +4,8 @@ object:
   icon: '💎'
   color: '#898989'
   loader: 'Fabric'
-  game-version: '26.3'
-  mod-version: '1.0'
+  gameVersion: '26.3'
+  modVersion: '1.0'
   size: '2 KB'
   downloads: 34000000
   stars: 58920
@@ -21,8 +21,8 @@ object:
   icon: '⚙️'
   color: '#FCE205'
   loader: 'Forge'
-  game-version: '1.7.10'
-  mod-version: '5.4'
+  gameVersion: '1.7.10'
+  modVersion: '5.4'
   size: '58 MB'
   downloads: 78954
   stars: 40982
