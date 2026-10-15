@@ -1,0 +1,34 @@
+object:
+  id: 'xray-ultimate'
+  name: 'Xray Ultimate'
+  icon: '💎'
+  color: '#898989'
+  loader: 'Fabric'
+  game-version: '26.3'
+  mod-version: '1.0'
+  size: '2 KB'
+  downloads: 34000000
+  stars: 58920
+  author: 'Clark Kent'
+  date: 'April 14th 2026'
+  feat:
+    - 'Lets you see ores trough walls in Minecraft'
+    - 'Configurate your visible blocks in the menu'
+
+object:
+  id: 'snorrtech'
+  name: 'Snorrtech'
+  icon: '⚙️'
+  color: '#FCE205'
+  loader: 'Forge'
+  game-version: '1.7.10'
+  mod-version: '5.4'
+  size: '58 MB'
+  downloads: 78954
+  stars: 40982
+  author: 'Snorre'
+  date: 'December 8. 2014'
+  feat:
+    - 'Advanced tech mod wuth a progression track'
+    - 'NEW: added chemistry'
+
