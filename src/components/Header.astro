@@ -1,17 +1,20 @@
 ---
+const pages = [
+  { href: '/mods', label: 'Mods' },
+  { href: '/texturepacks', label: 'Texture packs' },
+  { href: '/modpacks', label: 'Mod packs' }
+];
 
+const path = Astro.url.pathname;
 ---
 
-<header>
-  <header id="hdr"></header>
+<header id="hdr" class="top">
+  <div class="wrap nav">
+    <a class="logo" href="/"><i></i>ModHavn</a>
+    {pages.map((p) => (
+    <a class={path.startsWith(p.href) ? 'l on' : 'l'} href={p.href}>
+      {p.label}
+    </a>
+    ))}
+  </div>
 </header>
-
-function renderHeader(active, q) {
-  const links = [['mods', 'Mods'], ['modpacks', 'Modpakker'], ['resourcepacks', 'Teksturpakker'], ['shaders', 'Shaders']]
-    .map(([t, l]) => '<a class="l' + (active === t ? ' on' : '') + '" href="index.html?type=' + t + '">' + l + '</a>').join('');
-  const h = document.getElementById('hdr');
-  h.className = 'top';
-  h.innerHTML = '<div class="wrap nav"><a class="logo" href="index.html"><i></i>ModHavn</a>' + links +
-    '<form action="index.html" method="get" class="sf"><input name="q" type="search" placeholder="Søk etter mods…" autocomplete="off"></form></div>';
-  h.querySelector('input').value = q || '';
-}
