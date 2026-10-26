@@ -1,0 +1,28 @@
+---
+import Global from '@layouts/Global.astro';
+import CardList from '@components/CardList.astro';
+import { getCollection, type CollectionKey } from 'astro:content';
+
+export function getStaticPaths() {
+  const resourceTypes = ['mods', 'modpacks', 'texturepacks'];
+
+  return resourceTypes.map((resourceType) => ({ params: { resourceType } }));
+}
+
+const { resourceType } = Astro.params as { resourceType: CollectionKey };
+const entries = await getCollection(resourceType);
+
+const items = entries.map(({ data }) => ({
+  name: data.name,
+  icon: data.icon,
+  color: data.color,
+  text: data.feat[0],
+  href: `/${resourceType}/${data.id}`,
+}));
+---
+
+<Global title={`${resourceType} - ModHavn`}>
+  <main class="wrap">
+    <CardList items={items} />
+  </main>
+</Global>
