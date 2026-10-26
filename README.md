@@ -1,18 +1,39 @@
-Cybersikkerhetsprosjekt: nettside om falske nedlastingslenker
+# Cybersikkerhetsprosjekt: nettside om falske nedlastingslenker
 Blokhus, Gudmundsen, Helland, Søbstad
 
-Slik åpner du siden:
-  1. Dobbeltklikk index.html (fungerer i de fleste nettlesere), ELLER
-  2. Dobbeltklikk start.bat for å kjøre en lokal server på http://localhost:8123/
+## Om siden
+Siden er en læringsplattform for trygg bruk av lumske fildelingsplattformer.
+Hovedmålgruppen er gamere. Annonsene er harmløse.
 
-Filer:
-  index.html     Forside (ModHavn) med søk og kategorier
-  mod.html       Modside
-  download.html  Falsk «MediaFire»-side (FilDeling) med falske knapper og annonser
-  result.html    Resultat og quiz
-  data.js        Liste over mods (legg til flere her)
-  config.js      Bilde, navn, alder og Snapchat for «Single i ditt område»-popupen
-  bilde.jpg      Bildet som vises i popupen
-  *.css, common.js   Stil og felles kode
+## Slik åpner du siden
+- Enten bruk ```$ nix develop``` eller ha npm installert
+- ```$ npm install```
+- ```$ npm run dev```
 
-Alt er fiktivt og harmløst: ingen ekte filer lastes ned.
+## Opsett
+```
+src
+├── components
+│   ├── Footer.astro
+│   └── Header.astro
+├── content.config.js
+├── data
+│   ├── modpacks.yaml
+│   ├── mods.yaml
+│   └── texturepacks.yaml
+├── images
+│   └── bilde.jpg
+├── layouts
+│   └── Global.astro
+├── pages
+│   ├── download.astro
+│   ├── index.astro
+│   ├── mod.astro
+│   ├── modpacks
+│   ├── mods
+│   │   └── index.astro
+│   ├── result.astro
+│   └── texturepacks
+└── styles
+    └── fildeling.css
+```
