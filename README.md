@@ -10,7 +10,7 @@ Hovedmålgruppen er gamere. Annonsene er harmløse.
 - ```$ npm install```
 - ```$ npm run dev```
 
-## Opsett
+## Oppsett
 ```
 src
 ├── components
