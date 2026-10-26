@@ -1,5 +1,4 @@
-object:
-  id: 'xray-ultimate'
+- id: 'xray-ultimate'
   name: 'Xray Ultimate'
   icon: '💎'
   color: '#898989'
@@ -15,8 +14,7 @@ object:
     - 'Lets you see ores trough walls in Minecraft'
     - 'Configurate your visible blocks in the menu'
 
-object:
-  id: 'snorrtech'
+- id: 'snorrtech'
   name: 'Snorrtech'
   icon: '⚙️'
   color: '#FCE205'
@@ -31,4 +29,3 @@ object:
   feat:
     - 'Advanced tech mod with a progression track'
     - 'NEW: added chemistry'
-

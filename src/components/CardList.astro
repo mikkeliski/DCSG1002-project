@@ -1,0 +1,97 @@
+---
+interface CardItem {
+  name: string;
+  icon?: string;
+  color?: string;
+  text?: string;
+  href?: string;
+}
+
+interface Props {
+  items: CardItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="card-list">
+  {items.map((item) => {
+    const Tag = item.href ? "a" : "div";
+    return (
+      <li>
+        <Tag class="card" href={item.href}>
+          {item.icon && (
+            <span class="icon" style={`background: ${item.color ?? "var(--panel2)"}`} aria-hidden="true">
+              {item.icon}
+            </span>
+          )}
+          <div>
+            <h3>{item.name}</h3>
+            {item.text && <p>{item.text}</p>}
+          </div>
+        </Tag>
+      </li>
+    );
+  })}
+</ol>
+
+<style>
+  .card-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 24px 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a.card:hover {
+    border-color: var(--green);
+  }
+
+  a.card:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+  }
+
+  .icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+    font-size: 34px;
+  }
+
+  .card h3 {
+    margin: 0;
+  }
+
+  .card p {
+    margin: 4px 0 0;
+    color: var(--mute);
+    font-size: 14px;
+  }
+</style>

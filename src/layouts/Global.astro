@@ -15,7 +15,7 @@ const { title } = Astro.props;
     <slot />
     <Footer />
   </body>
-<style>
+<style is:global>
   :root {
     --bg: #16181c;
     --panel: #1e2126;
@@ -278,7 +278,6 @@ const { title } = Astro.props;
     text-align: center;
   }
 
-  /* ===== Footer ===== */
   /* ===== Statuslinje ===== */
   #statusbar {
     position: fixed;

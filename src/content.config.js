@@ -2,10 +2,8 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { file } from 'astro/loaders';
 
-const types = defineCollection({
-
 const mods = defineCollection({
-  loader: file('@data/mods.yaml'),
+  loader: file('src/data/mods.yaml'),
   schema: z.object({
     id: z.string(), name: z.string(), icon: z.string(), color: z.string(),
     loader: z.string(), gameVersion: z.string(), modVersion: z.string(),
@@ -15,7 +13,7 @@ const mods = defineCollection({
 });
 
 const modpacks = defineCollection({
-  loader: file('@data/modpacks.yaml'),
+  loader: file('src/data/modpacks.yaml'),
   schema: z.object({
     id: z.string(), name: z.string(), icon: z.string(), color: z.string(),
     loader: z.string(), gameVersion: z.string(), modpackVersion: z.string(),
@@ -25,7 +23,7 @@ const modpacks = defineCollection({
 });
 
 const texturepacks = defineCollection({
-  loader: file('@data/texturepacks.yaml'),
+  loader: file('src/data/texturepacks.yaml'),
   schema: z.object({
     id: z.string(), name: z.string(), icon: z.string(), color: z.string(),
     gameVersion: z.string(), modVersion: z.string(), size: z.string(),
