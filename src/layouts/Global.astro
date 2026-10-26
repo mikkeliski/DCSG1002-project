@@ -50,51 +50,6 @@ const { title } = Astro.props;
     padding: 0 16px;
   }
 
-  /* ===== Header og navigasjon ===== */
-  header.top {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    background: var(--panel);
-    border-bottom: 1px solid var(--line);
-  }
-
-  .nav {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    height: 56px;
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 800;
-    font-size: 20px;
-  }
-
-  .logo i {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background: var(--green);
-    border-radius: 6px;
-  }
-
-  .nav a.l {
-    color: var(--mute);
-    font-weight: 600;
-  }
-
-  .nav a.l:hover {
-    color: var(--text);
-  }
-
-  .nav a.l.on {
-    color: var(--green);
-  }
-
   /* ===== Søkefelt ===== */
   .nav input {
     margin-left: auto;
@@ -324,14 +279,6 @@ const { title } = Astro.props;
   }
 
   /* ===== Footer ===== */
-  footer {
-    margin-top: 40px;
-    padding: 24px 0;
-    border-top: 1px solid var(--line);
-    color: var(--mute);
-    font-size: 13px;
-  }
-
   /* ===== Statuslinje ===== */
   #statusbar {
     position: fixed;

@@ -18,3 +18,61 @@ const path = Astro.url.pathname;
     ))}
   </div>
 </header>
+<style>
+  :root {
+    --bg: #16181c;
+    --panel: #1e2126;
+    --panel2: #262a31;
+    --line: #323741;
+    --text: #e6e8eb;
+    --mute: #9aa1ad;
+    --green: #1bd96a;
+    --green-d: #13a850;
+  }
+
+  header.top {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 56px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 20px;
+  }
+
+  .logo i {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background: var(--green);
+    border-radius: 6px;
+  }
+
+  .nav a.l {
+    color: var(--mute);
+    font-weight: 600;
+  }
+
+  .nav a.l:hover {
+    color: var(--text);
+  }
+
+  .nav a.l.on {
+    color: var(--green);
+  }
+
+
+</style>
