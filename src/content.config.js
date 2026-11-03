@@ -2,6 +2,16 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { file } from 'astro/loaders';
 
+const resourceTypes = defineCollection({
+  loader: file('src/data/resourceTypes.yaml'),
+  schema: z.object({
+    id: z.enum(['mods', 'modpacks', 'texturepacks']),
+    order: z.number(),
+    label: z.string(),
+    description: z.string(),
+  }),
+});
+
 const mods = defineCollection({
   loader: file('src/data/mods.yaml'),
   schema: z.object({
@@ -32,4 +42,4 @@ const texturepacks = defineCollection({
   }),
 });
 
-export const collections = { mods, modpacks, texturepacks };
+export const collections = { resourceTypes, mods, modpacks, texturepacks };

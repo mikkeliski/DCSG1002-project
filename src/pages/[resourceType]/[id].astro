@@ -1,0 +1,84 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { getCollection } from 'astro:content';
+import Global from '@layouts/Global.astro';
+
+export const getStaticPaths = (async () => {
+  const resourceTypes = await getCollection('resourceTypes');
+
+  const paths = await Promise.all(
+    resourceTypes.map(async ({ data: type }) => {
+      const entries = await getCollection(type.id);
+
+      return entries.map(({ data }) => ({
+        params: { resourceType: type.id, id: data.id },
+        props: { type, item: data },
+      }));
+    })
+  );
+
+  return paths.flat();
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { type, item } = Astro.props;
+
+const loader = 'loader' in item ? item.loader : undefined;
+const version = 'modpackVersion' 
+  in item ? item.modpackVersion : item.modVersion;
+const formatNumber = (n: number) => n.toLocaleString('nb-NO');
+const downloadUrl = `https://modhavn.example/${type.id}/${item.id}/download`;
+---
+
+<Global title={`${item.name} – ModHavn`}>
+  <main class="wrap">
+    <div class="hero">
+      <div class="icon" style={`background: ${item.color}`} 
+      aria-hidden="true">{item.icon}</div>
+      <div>
+        <h1>{item.name}</h1>
+        <span class="tag">{type.label}</span>
+        {loader && <span class="tag">{loader}</span>}
+        <span class="tag">{item.gameVersion}</span>
+        <span class="tag">⬇ {formatNumber(item.downloads)}</span>
+        <span class="tag">★ {formatNumber(item.stars)}</span>
+      </div>
+    </div>
+
+    <div class="layout">
+      <div class="box">
+        <div class="tabs">
+          <span class="on">Beskrivelse</span>
+          <span>Filer</span>
+          <span>Bilder</span>
+          <span>Endringslogg</span>
+        </div>
+
+        <h2>Funksjoner</h2>
+        <ul>
+          {item.feat.map((f) => <li>{f}</li>)}
+        </ul>
+      </div>
+
+      <aside>
+        <div class="box">
+          <a class="btn block" href={`/download?id=${item.id}`} 
+            data-url={downloadUrl}>⬇ Last ned</a>
+          <dl>
+            <dt>Versjon</dt>
+            <dd>{version}</dd>
+            <dt>Filstørrelse</dt>
+            <dd>{item.size}</dd>
+            <dt>Utgitt</dt>
+            <dd>{item.date}</dd>
+            <dt>Forfatter</dt>
+            <dd>{item.author}</dd>
+            <dt>Lisens</dt>
+            <dd>MIT</dd>
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </main>
+</Global>

@@ -1,20 +1,18 @@
 ---
-const pages = [
-  { href: '/mods', label: 'Mods' },
-  { href: '/texturepacks', label: 'Texture packs' },
-  { href: '/modpacks', label: 'Mod packs' }
-];
+import { getCollection } from 'astro:content';
 
+const resourceTypes = (await getCollection('resourceTypes'))
+  .sort((a, b) => a.data.order - b.data.order);
 const path = Astro.url.pathname;
 ---
 
 <header id="hdr" class="top">
   <div class="wrap nav">
     <a class="logo" href="/"><i></i>ModHavn</a>
-    {pages.map((p) => (
-    <a class={path.startsWith(p.href) ? 'l on' : 'l'} href={p.href}>
-      {p.label}
-    </a>
+    {resourceTypes.map(({ data }) => (
+      <a class:list={['l', { on: path.startsWith(`/${data.id}`) }]} href={`/${data.id}`}>
+        {data.label}
+      </a>
     ))}
   </div>
 </header>

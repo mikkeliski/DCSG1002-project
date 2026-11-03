@@ -1,0 +1,14 @@
+- id: 'mods'
+  order: 1
+  label: 'Mods'
+  description: 'Små tillegg som endrer eller utvider spillet.'
+
+- id: 'texturepacks'
+  order: 2
+  label: 'Texture packs'
+  description: 'Nye teksturer som endrer hvordan blokker og gjenstander ser ut.'
+
+- id: 'modpacks'
+  order: 3
+  label: 'Mod packs'
+  description: 'Ferdige samlinger av mods som er satt opp for å fungere sammen.'

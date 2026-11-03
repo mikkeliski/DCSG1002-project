@@ -1,28 +1,41 @@
 ---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { getCollection } from 'astro:content';
 import Global from '@layouts/Global.astro';
+import Banner from '@components/Banner.astro';
 import CardList from '@components/CardList.astro';
-import { getCollection, type CollectionKey } from 'astro:content';
 
-export function getStaticPaths() {
-  const resourceTypes = ['mods', 'modpacks', 'texturepacks'];
+export const getStaticPaths = (async () => {
+  const resourceTypes = await getCollection('resourceTypes');
 
-  return resourceTypes.map((resourceType) => ({ params: { resourceType } }));
-}
+  return resourceTypes.map(({ data }) => ({
+    params: { resourceType: data.id },
+    props: { type: data },
+  }));
+}) satisfies GetStaticPaths;
 
-const { resourceType } = Astro.params as { resourceType: CollectionKey };
-const entries = await getCollection(resourceType);
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { type } = Astro.props;
+const entries = await getCollection(type.id);
 
 const items = entries.map(({ data }) => ({
   name: data.name,
   icon: data.icon,
   color: data.color,
   text: data.feat[0],
-  href: `/${resourceType}/${data.id}`,
+  href: `/${type.id}/${data.id}`,
 }));
 ---
 
-<Global title={`${resourceType} - ModHavn`}>
+<Global title={`${type.label} – ModHavn`}>
+  <Banner title={type.label}>{type.description}</Banner>
+
   <main class="wrap">
-    <CardList items={items} />
+    {items.length > 0 ? (
+      <CardList items={items} />
+    ) : (
+      <p class="empty">Det er ingen {type.label.toLowerCase()} her ennå.</p>
+    )}
   </main>
 </Global>
