@@ -1,0 +1,41 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { getCollection } from 'astro:content';
+import Global from '@layouts/Global.astro';
+import Banner from '@components/Banner.astro';
+import CardList from '@components/CardList.astro';
+
+export const getStaticPaths = (async () => {
+  const resourceTypes = await getCollection('resourceTypes');
+
+  return resourceTypes.map(({ data }) => ({
+    params: { resourceType: data.id },
+    props: { type: data },
+  }));
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { type } = Astro.props;
+const entries = await getCollection(type.id);
+
+const items = entries.map(({ data }) => ({
+  name: data.name,
+  icon: data.icon,
+  color: data.color,
+  text: data.feat[0],
+  href: `/${type.id}/${data.id}`,
+}));
+---
+
+<Global title={`${type.label} – ModHavn`}>
+  <Banner title={type.label}>{type.description}</Banner>
+
+  <main class="wrap">
+    {items.length > 0 ? (
+      <CardList items={items} />
+    ) : (
+      <p class="empty">Det er ingen {type.label.toLowerCase()} her ennå.</p>
+    )}
+  </main>
+</Global>

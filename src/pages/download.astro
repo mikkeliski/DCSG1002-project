@@ -1,0 +1,736 @@
+---
+---
+<html lang="no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>FilDeling – Last ned fil</title>
+    <link rel="stylesheet" href="fildeling.css">
+  </head>
+  <body>
+    <div class="topad" data-fake data-why="Dette er en annonse som ser ut som 
+                en systemvarsling. Sider kan ikke vite om PC-en din har virus. 
+                Det er en klassisk skremmetaktikk for å få deg til å installere 
+                noe." 
+                data-url="http://pc-sjekk-gratis.example/scan?id=8841">
+      ⚠️ <b>ADVARSEL:</b>
+      PC-en din kan være infisert med 7 virus! 
+      <u>Klikk her for gratis skanning</u>
+    </div>
+    <header class="fh">
+      <div class="fw">
+        <span class="flogo">FilDeling</span>
+        <nav><a>Logg inn</a><a>Premium</a><a class="up">Last opp</a></nav></div>
+    </header>
+    <div class="fw cols">
+      <aside class="side">
+        <div class="ad" data-fake data-why="Gevinstannonser er nesten alltid 
+                    svindel. Du har ikke vunnet noe, og målet er å få deg til å 
+                    oppgi personopplysninger eller kortinfo." 
+                    data-url="http://gratis-iphone-vinner.example/claim">
+          <small>Annonse</small>
+          <div class="big">🎁</div>
+          <b>GRATULERER!</b>
+          <p>Du er besøkende nr. 1 000 000!</p>
+          <span class="gbtn">KREV GEVINST</span>
+        </div>
+        <div class="ad" data-fake data-why="Slike «oppdater nå»-knapper på 
+                    tilfeldige nettsider leverer ofte skadevare. Oppdater alltid 
+                    programmer fra produsentens egen side eller via programmet 
+                    selv." 
+                    data-url="http://java-oppdatering-na.example/JavaSetup.exe">
+          <small>Annonse</small>
+          <div class="big">☕</div>
+          <b>Java må oppdateres</b>
+          <p>Din versjon er utdatert og farlig.</p>
+          <span class="gbtn blue">OPPDATER</span>
+        </div>
+      </aside>
+      <main class="main">
+        <div class="file">
+          <div class="fi">📦</div>
+          <div><h1 id="fn"></h1><p id="fm"></p></div>
+        </div>
+        <div class="alertpop" id="vir" hidden>
+          <b>🛑 VIRUS OPPDAGET</b>
+          <p>Trojan.Gen.2 ble funnet på enheten din. Fjern nå!</p>
+          <button data-fake 
+          data-why="Falsk virusvarsel i nettleseren. Nettsider kan ikke skanne 
+                    maskinen din. Ekte antivirus varsler deg fra programmet, 
+                    ikke fra en nettside." 
+          data-url="http://virus-fjerner-pro.example/RemoveNow.exe"
+          >
+            FJERN VIRUS
+          </button>
+      <button class="x" id="vclose">Lukk</button>
+    </div>
+    <p class="timer">Nedlastingen din er klar om <b id="cd">5</b> sekunder…</p>
+    <div class="btnzone" id="zone">
+      <a class="dl dl-green" data-fake data-why="Stor, grønn «Start Download» 
+                med ekstra pil. Adressen går til en helt annen side og filen 
+                heter .exe, ikke .jar. En mod skal aldri være en 
+                installasjonsfil." 
+                data-url="http://fast-dl-boost.example/get/DownloadManager_Setup.exe">
+        <span>⬇ START NEDLASTING</span><small>Rask nedlasting · Anbefalt</small></a>
+      <a class="dl dl-orange" data-fake data-why="Her står det «Download Now», men det er en annonse. Se etter den lille «Annonse»-merkingen. Adressen peker til en tredjepart." data-url="http://best-downloads-2026.example/redirect?f=superdiamant">
+        <span>DOWNLOAD NOW</span><small class="adtag">Annonse</small></a>
+      <a class="dl dl-real" data-real data-url="https://download.fildeling.example/file/k3x9q2/super-diamant-plus-2.4.1.jar">
+        <span id="rl">Last ned</span></a>
+      <a class="dl dl-grey" data-fake data-why="«Last ned med Premium» prøver å selge deg et abonnement og en «nedlastingsbehandler». Du trenger ingen av delene for en liten fil." data-url="http://fildeling-premium-rask.example/checkout">
+        <span>⚡ Premium-nedlasting – 10x raskere</span></a>
+      <a class="dl dl-blue" data-fake data-why="Falsk avspillingsknapp / «videospiller». Kommer ofte med påstanden om at du må installere en kodek eller utvidelse. Det trenger du ikke." data-url="http://video-codec-pack.example/install-extension">
+        <span>▶ Se video først (kodek kreves)</span></a>
+    </div>
+
+    <div class="ad wide" data-fake data-why="En bannerannonse som imiterer en nedlastingsknapp. Alt som blinker og lover «100 % gratis» er mistenkelig." data-url="http://free-vpn-ultra.example/download.apk">
+      <small>Annonse</small><span class="blink">⬇ DOWNLOAD – 100% GRATIS VPN – DOWNLOAD ⬇</span></div>
+
+    <div class="info">
+      <h3>Om filen</h3>
+      <p id="fi">…</p>
+    </div>
+    <p class="hintrow">Står du fast? <a href="#" id="hint">Vis hint</a></p>
+    <p class="hinttxt" id="hinttxt" hidden>Hint: Hold musepekeren over knappene og les adressen nederst til venstre. Den ekte filen ender på <b>.jar</b>, ligger på FilDelings eget domene, og knappen har ingen «annonse»-merking.</p>
+  </main>
+
+  <aside class="side">
+    <div class="ad" data-popup data-url="http://singler-i-ditt-omrade.example/chat">
+      <small>Annonse</small><div class="big">🔥</div><b>Single i ditt område</b><p>Vil chatte nå?</p><span class="gbtn pink">START</span></div>
+    <div class="ad" data-fake data-why="Falsk «Download»-knapp i en sidebar-annonse. Teksten i knappen sier ikke noe om hva adressen faktisk er." data-url="http://mega-mods-pack.example/all-mods.zip">
+      <small>Annonse</small><div class="big">🧰</div><b>1000 mods på en gang!</b><p>Last ned alle mods gratis</p><span class="gbtn">DOWNLOAD</span></div>
+  </aside>
+</div>
+
+<div class="modal" id="snapmodal" hidden><div class="sbox">
+  <button class="sx" id="sclose" aria-label="Lukk">✕</button>
+  <div class="sphoto">
+    <img id="simg" alt="">
+    <span class="sfallback" id="sfb">📷</span>
+    <span class="son">● Pålogget nå</span>
+  </div>
+  <h2 id="sname"></h2>
+  <p class="sdist" id="sdist"></p>
+  <p class="smsg">«Hei! Jeg er alene hjemme i kveld 😘 Legg meg til på Snapchat så snakkes vi!»</p>
+  <div class="ssnap">👻 Snapchat: <b id="ssnap"></b></div>
+  <a class="sadd" data-fake data-why="Dette er en klassisk romansesvindel: en «person» med pent bilde vil flytte samtalen til en annen app. Målet er å bygge tillit og senere be om penger, bilder eller kortinfo. Bildet er ofte stjålet. Ikke legg til ukjente som kontakter deg ut av det blå." data-url="https://www.snapchat.com/add/hot-singles-lokal">LEGG TIL PÅ SNAPCHAT</a>
+  <small class="sfoot">Annonse · 18+ · Over 2 300 singler online</small>
+  </div></div>
+<div class="modal" id="modal" hidden><div class="mbox">
+  <h2>❌ Falsk lenke!</h2>
+  <p id="why"></p>
+  <p class="addr">Adressen var: <code id="addr"></code></p>
+  <button id="mok">Prøv igjen</button>
+</div></div>
+
+<footer class="ff">
+  <div class="fw">Et skoleprosjekt om sikker nedlasting. FilDeling er en fiktiv 
+    side for opplæring · ingen ekte filer eller skadevare
+  </div>
+</footer>
+
+<script>
+(function(){
+  store.set("fakeClicks", store.get("fakeClicks", 0));
+  const m = MODS.find(x => x.id === new URLSearchParams(location.search).get("id")) || MODS[0];
+  store.set("lastMod", m.id);
+  const fn = fileName(m);
+  document.title = "FilDeling – Last ned " + fn;
+  document.getElementById("fn").textContent = fn;
+  document.getElementById("fm").textContent = m.size + " · Lastet opp av " + m.author + " · " + m.date;
+  document.getElementById("rl").textContent = "Last ned (" + m.size + ")";
+  document.querySelector("[data-real]").dataset.url = "https://download.fildeling.example/file/k3x9q2/" + fn;
+  document.getElementById("fi").textContent = "Filtype: ." + fn.split(".").pop() + " · Størrelse: " + m.size + " · Delt via lenke fra modhavn.example";
+  // Bland rekkefølgen på knappene hver gang siden lastes
+  const zone = document.getElementById('zone');
+  [...zone.children].sort(() => Math.random() - .5).forEach(c => zone.appendChild(c));
+
+  // Nedtelling
+  let n = 5; const cd = document.getElementById('cd');
+  const t = setInterval(() => { n--; cd.textContent = Math.max(n, 0); if (n <= 0) clearInterval(t); }, 1000);
+
+  // Falsk virusvarsel etter litt tid
+  setTimeout(() => { document.getElementById('vir').hidden = false; }, 3500);
+  document.getElementById('vclose').onclick = () => { document.getElementById('vir').hidden = true; };
+
+  const modal = document.getElementById('modal');
+  const snap = document.getElementById('snapmodal');
+  const img = document.getElementById('simg'), fb = document.getElementById('sfb');
+  img.onerror = () => { img.style.display = 'none'; fb.style.display = 'grid'; };
+  img.onload = () => { img.style.display = 'block'; fb.style.display = 'none'; };
+  document.getElementById('sname').textContent = SINGLE_AD.name + ', ' + SINGLE_AD.age;
+  document.getElementById('sdist').textContent = '📍 ' + SINGLE_AD.distance;
+  document.getElementById('ssnap').textContent = '@' + SINGLE_AD.snap;
+  document.getElementById('sclose').onclick = () => { snap.hidden = true; };
+  document.addEventListener('click', e => {
+    if (e.target.closest('[data-popup]')) { e.preventDefault(); img.src = SINGLE_AD.image; snap.hidden = false; store.set('fakeClicks', store.get('fakeClicks', 0) + 1); }
+  });
+  document.addEventListener('click', e => {
+    const fake = e.target.closest('[data-fake]');
+    const real = e.target.closest('[data-real]');
+    if (fake) {
+      e.preventDefault();
+      const seen = store.get('seen', []);
+      if (!seen.includes(fake.dataset.url)) { seen.push(fake.dataset.url); store.set('seen', seen); }
+      store.set('fakeClicks', store.get('fakeClicks', 0) + 1);
+      document.getElementById('why').textContent = fake.dataset.why;
+      document.getElementById('addr').textContent = fake.dataset.url;
+      snap.hidden = true; modal.hidden = false;
+    } else if (real) {
+      e.preventDefault();
+      location.href = 'result.html';
+    }
+  });
+  document.getElementById('mok').onclick = () => { modal.hidden = true; };
+  document.getElementById('hint').onclick = e => { e.preventDefault(); document.getElementById('hinttxt').hidden = false; store.set('hint', true); };
+})();
+</script>
+  </body>
+</html>
+<style>
+  /* ===== Grunnoppsett ===== */
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: #e9eef5;
+    color: #222;
+    font: 14px/1.45 Arial, Helvetica, sans-serif;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .fw {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 12px;
+  }
+
+  /* ===== Toppbanner ===== */
+  .topad {
+    display: block;
+    background: #ffe600;
+    color: #900;
+    text-align: center;
+    padding: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    animation: flash 1s infinite;
+  }
+
+  @keyframes flash {
+    50% {
+      background: #ff5252;
+      color: #fff;
+    }
+  }
+
+  /* ===== Header ===== */
+  .fh {
+    background: #0070ff;
+    color: #fff;
+  }
+
+  .fh .fw {
+    display: flex;
+    align-items: center;
+    height: 52px;
+  }
+
+  .flogo {
+    font-weight: 900;
+    font-size: 24px;
+    letter-spacing: -1px;
+  }
+
+  .fh nav {
+    margin-left: auto;
+    display: flex;
+    gap: 18px;
+    font-weight: 700;
+  }
+
+  .fh .up {
+    background: #fff;
+    color: #0070ff;
+    border-radius: 4px;
+    padding: 5px 12px;
+  }
+
+  /* ===== Layout ===== */
+  .cols {
+    display: grid;
+    grid-template-columns: 170px 1fr 170px;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .main {
+    background: #fff;
+    border: 1px solid #cfd8e3;
+    border-radius: 6px;
+    padding: 20px;
+    min-width: 0;
+  }
+
+  /* ===== Filinfo ===== */
+  .file {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    border-bottom: 1px solid #e3e8ef;
+    padding-bottom: 14px;
+    margin-bottom: 12px;
+  }
+
+  .fi {
+    font-size: 44px;
+  }
+
+  .file h1 {
+    margin: 0;
+    font-size: 20px;
+    word-break: break-all;
+  }
+
+  .file p {
+    margin: 2px 0 0;
+    color: #667;
+  }
+
+  .timer {
+    text-align: center;
+    color: #c00;
+    font-weight: 700;
+    margin: 6px 0 14px;
+  }
+
+  /* ===== Nedlastingsknapper ===== */
+  .btnzone {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    margin: 8px 0 18px;
+  }
+
+  .dl {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 440px;
+    padding: 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .dl:hover {
+    filter: brightness(1.08);
+  }
+
+  .dl small {
+    font-weight: 400;
+    font-size: 12px;
+    opacity: 0.9;
+  }
+
+  .dl-green {
+    background: linear-gradient(#3ee05a, #18a634);
+    font-size: 22px;
+    padding: 22px;
+  }
+
+  .dl-orange {
+    background: linear-gradient(#ffa73c, #f06a00);
+  }
+
+  .dl-real {
+    background: #0070ff;
+    max-width: 300px;
+    padding: 12px;
+    font-size: 16px;
+  }
+
+  .dl-grey {
+    background: #555;
+    font-size: 15px;
+  }
+
+  .dl-blue {
+    background: linear-gradient(#5aa5ff, #2d6fe0);
+    font-size: 15px;
+  }
+
+  .adtag {
+    background: #fff;
+    color: #888;
+    border-radius: 3px;
+    padding: 0 5px;
+    margin-top: 3px;
+    font-size: 9px !important;
+  }
+
+  /* ===== Annonser ===== */
+  .ad {
+    background: #fff;
+    border: 1px solid #cfd8e3;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 14px;
+    cursor: pointer;
+  }
+
+  .ad small {
+    display: block;
+    text-align: right;
+    color: #aaa;
+    font-size: 9px;
+  }
+
+  .ad .big {
+    font-size: 40px;
+  }
+
+  .ad p {
+    margin: 4px 0 8px;
+    font-size: 12px;
+  }
+
+  .ad:hover {
+    border-color: #f90;
+  }
+
+  .gbtn {
+    display: inline-block;
+    background: #e22;
+    color: #fff;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .gbtn.blue {
+    background: #07f;
+  }
+
+  .gbtn.pink {
+    background: #e0237a;
+  }
+
+  .ad.wide {
+    background: #111;
+    color: #0f0;
+    padding: 14px;
+  }
+
+  .ad.wide small {
+    color: #666;
+  }
+
+  .blink {
+    font-weight: 900;
+    animation: b 0.8s infinite;
+  }
+
+  @keyframes b {
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  /* ===== Info og hint ===== */
+  .info {
+    background: #f5f8fc;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-top: 6px;
+  }
+
+  .info h3 {
+    margin: 0 0 4px;
+    font-size: 14px;
+  }
+
+  .info p {
+    margin: 0;
+    color: #556;
+  }
+
+  .hintrow {
+    text-align: center;
+    color: #778;
+    font-size: 13px;
+  }
+
+  .hintrow a {
+    color: #07f;
+    text-decoration: underline;
+  }
+
+  .hinttxt {
+    background: #fff8d6;
+    border: 1px solid #e6d27a;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  /* ===== Varselboks ===== */
+  .alertpop {
+    background: #fff;
+    border: 3px solid #d00;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: center;
+    margin-bottom: 12px;
+    color: #d00;
+  }
+
+  .alertpop p {
+    margin: 4px 0 10px;
+    color: #222;
+  }
+
+  .alertpop button {
+    background: #d00;
+    color: #fff;
+    border: 0;
+    font-weight: 700;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .alertpop button.x {
+    background: #ddd;
+    color: #444;
+    margin-left: 6px;
+  }
+
+  /* ===== Modal ===== */
+  .modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: grid;
+    place-items: center;
+    z-index: 100;
+  }
+
+  .modal[hidden],
+  [hidden] {
+    display: none !important;
+  }
+
+  .mbox {
+    background: #fff;
+    max-width: 480px;
+    margin: 16px;
+    padding: 24px;
+    border-radius: 10px;
+    border-top: 6px solid #d00;
+  }
+
+  .mbox h2 {
+    margin-top: 0;
+    color: #b00;
+  }
+
+  .addr code {
+    background: #f1f1f1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    word-break: break-all;
+    font-size: 12px;
+  }
+
+  .mbox button {
+    background: #0070ff;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  /* ===== Footer ===== */
+  .ff {
+    padding: 24px 0;
+    color: #778;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* ===== Statuslinje ===== */
+  #statusbar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 9999;
+    max-width: 80vw;
+    padding: 3px 10px;
+    background: #f1f3f4;
+    color: #222;
+    font: 12px system-ui;
+    border: 1px solid #c9ccd0;
+    border-left: 0;
+    border-bottom: 0;
+    border-radius: 0 6px 0 0;
+    opacity: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #statusbar.show {
+    opacity: 1;
+  }
+
+  /* ===== Responsivt ===== */
+  @media (max-width: 850px) {
+    .cols {
+      grid-template-columns: 1fr;
+    }
+
+    .side {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+  }
+
+  /* ===== Popup-kort ===== */
+  .sbox {
+    position: relative;
+    width: 340px;
+    max-width: 92vw;
+    max-height: 96vh;
+    padding-bottom: 16px;
+    background: #fff;
+    border: 3px solid #ff2d87;
+    border-radius: 14px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .sx {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 0;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .sphoto {
+    position: relative;
+    display: block;
+    height: min(280px, 36vh);
+    background: #222;
+    overflow: hidden;
+  }
+
+  .sphoto img {
+    position: absolute;
+    inset: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+  }
+
+  .sfallback {
+    display: none;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 90px;
+    background: linear-gradient(135deg, #ff2d87, #ffb347);
+  }
+
+  .sphoto .sfallback {
+    position: absolute;
+    inset: 0;
+  }
+
+  .son {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #4f4;
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+
+  .sbox h2 {
+    margin: 12px 0 0;
+    font-size: 24px;
+  }
+
+  .sdist {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+  }
+
+  .smsg {
+    margin: 10px 16px;
+    background: #f1f1f1;
+    border-radius: 12px;
+    padding: 10px;
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .ssnap {
+    margin: 8px 16px;
+    background: #fffc00;
+    border-radius: 8px;
+    padding: 9px;
+    font-size: 16px;
+  }
+
+  .sadd {
+    display: block;
+    margin: 10px 16px 6px;
+    background: #fffc00;
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    animation: b 0.9s infinite;
+  }
+
+  .sfoot {
+    color: #aaa;
+    font-size: 10px;
+  }
+
+</style>

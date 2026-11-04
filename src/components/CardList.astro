@@ -1,0 +1,33 @@
+---
+import Card from '@components/Card.astro';
+import type { ComponentProps } from 'astro/types';
+
+interface Props {
+  items: ComponentProps<typeof Card>[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="card-list">
+  {items.map((item) => <li><Card {...item} /></li>)}
+</ol>
+
+<style>
+  .card-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 24px 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 560px;
+  }
+</style>
