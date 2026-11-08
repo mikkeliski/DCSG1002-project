@@ -1,0 +1,97 @@
+---
+import Global from '@layouts/Global.astro'
+import Banner from '@components/Banner.astro'
+import { Image } from 'astro:assets';
+import Malvertising from '@images/Malvertising.svg';
+---
+<Global title="Hva er malvertising?">
+  <Banner title="Lær mer">
+  </Banner>
+
+  <main class="wrap">
+    <article class="box explainer">
+      <h2>Hva er malvertising?</h2>
+      <p>
+        Malvertising (fra engelsk «malicious advertising») er reklame som brukes
+        til å spre skadevare eller lure deg inn på svindelsider. Annonsene 
+        kjøpes gjennom vanlige annonsenettverk, så de kan dukke opp på nettsider 
+        du ellers stoler på.
+      </p>
+
+      <figure>
+        <Image src={Malvertising} alt="Et eksempel på malvertising." class="example" />
+        <figcaption>Eksempel: en annonse som utgir seg for å være noe den ikke er.</figcaption>
+      </figure>
+
+      <h3>Slik kjenner du den igjen</h3>
+      <ul>
+        <li>Den haster: «Datamaskinen din er infisert!» eller «Du har vunnet!»</li>
+        <li>Store «Last ned»-knapper som ligner den ekte knappen på siden.</li>
+        <li>Lenken fører til et annet domene enn nettstedet du er på.</li>
+        <li>Den ber deg installere noe for å se innhold eller «fikse» et problem.</li>
+      </ul>
+
+      <div class="note">
+        Har du klikket på en annonse ved et uhell, lukk fanen uten å laste ned
+        noe. Last bare ned programmer fra den offisielle nettsiden eller
+        appbutikken, og hold nettleseren oppdatert.
+      </div>
+    </article>
+    <article class="box explainer">
+      <h2>Hvordan unngå malvertising</h2>
+      <p>
+      </p>
+
+      <figure>
+        <Image src={Malvertising} alt="Et eksempel på malvertising." class="example" />
+        <figcaption>Eksempel: en annonse som utgir seg for å være noe den ikke er.</figcaption>
+      </figure>
+
+      <h3>Slik kjenner du den igjen</h3>
+      <ul>
+        <li>Den haster: «Datamaskinen din er infisert!» eller «Du har vunnet!»</li>
+        <li>Store «Last ned»-knapper som ligner den ekte knappen på siden.</li>
+        <li>Lenken fører til et annet domene enn nettstedet du er på.</li>
+        <li>Den ber deg installere noe for å se innhold eller «fikse» et problem.</li>
+      </ul>
+
+      <div class="note">
+        Har du klikket på en annonse ved et uhell, lukk fanen uten å laste ned
+        noe. Last bare ned programmer fra den offisielle nettsiden eller
+        appbutikken, og hold nettleseren oppdatert.
+      </div>
+    </article>
+
+  </main>
+</Global>
+
+<style>
+  .explainer {
+    max-width: 760px;
+    margin: 24px auto;
+  }
+
+  .explainer p,
+  .explainer li {
+    max-width: 68ch;
+  }
+
+  figure {
+    margin: 20px 0;
+  }
+
+  .example {
+    display: block;
+    width: 60%;
+    height: auto;
+    padding: 12px;
+    background-color: white;
+    border-radius: 10px;
+  }
+
+  figcaption {
+    margin-top: 8px;
+    color: var(--mute);
+    font-size: 13px;
+  }
+</style>
