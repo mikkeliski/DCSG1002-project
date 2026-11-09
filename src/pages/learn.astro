@@ -25,34 +25,32 @@ import Malvertising from '@images/Malvertising.svg';
 
       <h3>Slik kjenner du den igjen</h3>
       <ul>
-        <li>Den haster: «Datamaskinen din er infisert!» eller «Du har vunnet!»</li>
+        <li>
+          Den haster: «Datamaskinen din er infisert!» eller «Du har vunnet!»
+        </li>
         <li>Store «Last ned»-knapper som ligner den ekte knappen på siden.</li>
         <li>Lenken fører til et annet domene enn nettstedet du er på.</li>
-        <li>Den ber deg installere noe for å se innhold eller «fikse» et problem.</li>
+        <li>
+          Den ber deg installere noe for å se innhold eller «fikse» et problem.
+        </li>
       </ul>
-
-      <div class="note">
-        Har du klikket på en annonse ved et uhell, lukk fanen uten å laste ned
-        noe. Last bare ned programmer fra den offisielle nettsiden eller
-        appbutikken, og hold nettleseren oppdatert.
-      </div>
     </article>
     <article class="box explainer">
       <h2>Hvordan unngå malvertising</h2>
       <p>
+        Det viktigste tiltaket for å unngå å falle for malvertising er å ha gode
+        vaner rundt databruk. Ad-blockere hinderer de fleste annonser på nettet,
+        derfor er ad-blockere også et godt tiltak mot malvertising.
       </p>
-
-      <figure>
-        <Image src={Malvertising} alt="Et eksempel på malvertising." class="example" />
-        <figcaption>Eksempel: en annonse som utgir seg for å være noe den ikke er.</figcaption>
-      </figure>
-
-      <h3>Slik kjenner du den igjen</h3>
+      <h3>Gode vaner</h3>
       <ul>
-        <li>Den haster: «Datamaskinen din er infisert!» eller «Du har vunnet!»</li>
-        <li>Store «Last ned»-knapper som ligner den ekte knappen på siden.</li>
-        <li>Lenken fører til et annet domene enn nettstedet du er på.</li>
-        <li>Den ber deg installere noe for å se innhold eller «fikse» et problem.</li>
+        <li>Alltid tenk deg om før du trykker på noe på nettet.</li>
+        <li>Det haster aldri, stopp opp og tenk deg om.</li>
+        <li>Ikke last ned noe du ikke vet hva er.</li>
+        <li>
+          Hvis du oppdager at noe ikke er som vanlig, spør en venn eller et 
+          familiemedlem.
+        </li>
       </ul>
 
       <div class="note">
@@ -60,6 +58,18 @@ import Malvertising from '@images/Malvertising.svg';
         noe. Last bare ned programmer fra den offisielle nettsiden eller
         appbutikken, og hold nettleseren oppdatert.
       </div>
+      <h3>Ad blockers</h3>
+      <p>
+        Det kan være lurt å vurdere å bruke en ad blocker. 
+        <a href="https://github.com/uBlockOrigin/uBOL-home">
+          Ublock origin lite
+        </a>
+        eller 
+        <a href="https://github.com/uBlockOrigin/uBO-home">
+          Ublock origin
+        </a>
+        er to gode eksempler.
+      </p>
     </article>
 
   </main>
@@ -78,11 +88,12 @@ import Malvertising from '@images/Malvertising.svg';
 
   figure {
     margin: 20px 0;
+    width: 50%;
   }
 
   .example {
     display: block;
-    width: 60%;
+    width: 100%;
     height: auto;
     padding: 12px;
     background-color: white;
