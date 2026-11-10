@@ -3,14 +3,16 @@ import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 import { getCollection } from 'astro:content';
 import FilDeling from '@layouts/FilDeling.astro';
 import AdCard from '@components/fildeling/AdCard.astro';
+import java from '@images/java-icon.svg';
+import win from '@images/win.svg';
+import mods from '@images/mods.svg';
 import DownloadButtons from '@components/fildeling/DownloadButtons.astro';
 import SnapPopup from '@components/fildeling/SnapPopup.astro';
 import TrapModal from '@components/fildeling/TrapModal.astro';
 import VirusAlert from '@components/fildeling/VirusAlert.astro';
-import { SINGLE_AD } from '@data/singleAd';
+import { FRIEND_AD } from '@data/friendAd';
 import { traps, trapAttrs } from '@data/traps';
 
-// Én ferdig side per ressurs: /download/mods/xray-ultimate osv.
 export const getStaticPaths = (async () => {
   const resourceTypes = await getCollection('resourceTypes');
 
@@ -46,14 +48,14 @@ const realUrl = `https://download.fildeling.example/file/k3x9q2/${fileName}`;
   <div class="fw cols">
     <aside class="side">
       <AdCard
-        icon="🎁"
+        image={win}
         title="GRATULERER!"
         text="Du er besøkende nr. 1 000 000!"
         cta="KREV GEVINST"
         trap={traps.prize}
       />
       <AdCard
-        icon="☕"
+        image={java}
         title="Java må oppdateres"
         text="Din versjon er utdatert og farlig."
         cta="OPPDATER"
@@ -95,14 +97,14 @@ const realUrl = `https://download.fildeling.example/file/k3x9q2/${fileName}`;
     <aside class="side">
       <AdCard
         icon="🔥"
-        title="Single i ditt område"
+        title="Venner i ditt område"
         text="Vil chatte nå?"
         cta="START"
         color="pink"
-        popupUrl={SINGLE_AD.adUrl}
+        popupUrl={FRIEND_AD.adUrl}
       />
       <AdCard
-        icon="🧰"
+        image={mods}
         title="1000 mods på en gang!"
         text="Last ned alle mods gratis"
         cta="DOWNLOAD"
@@ -119,7 +121,6 @@ const realUrl = `https://download.fildeling.example/file/k3x9q2/${fileName}`;
   import { store } from '@lib/store';
 
   store.set('fakeClicks', store.get('fakeClicks', 0));
-  // Så «Prøv igjen» på resultatsiden kommer tilbake hit
   store.set('lastDownload', location.pathname);
 
   document.getElementById('hint')!.addEventListener('click', (e) => {

@@ -1,25 +1,26 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import { trapAttrs, type Trap } from '@data/traps';
 
 interface Props {
-  icon: string;
+  icon?: string;
+  image?: ImageMetadata;
   title: string;
   text: string;
   cta: string;
   color?: 'red' | 'blue' | 'pink';
-  /** Falsk lenke: klikk åpner forklaringen i TrapModal. */
   trap?: Trap;
-  /** Brukes i stedet for trap: klikk åpner SnapPopup. */
   popupUrl?: string;
 }
 
-const { icon, title, text, cta, color = 'red', trap, popupUrl } = Astro.props;
+const { icon, image, title, text, cta, color = 'red', trap, popupUrl } = Astro.props;
 const attrs = trap ? trapAttrs(trap) : { 'data-popup': true, 'data-url': popupUrl };
 ---
 
 <div class="ad" {...attrs}>
   <small>Annonse</small>
-  <div class="big">{icon}</div>
+  {image ? <Image src={image} alt="" width={340} class="pic" /> : icon && <div class="big">{icon}</div>}
   <b>{title}</b>
   <p>{text}</p>
   <span class:list={['gbtn', color]}>{cta}</span>
@@ -49,6 +50,14 @@ const attrs = trap ? trapAttrs(trap) : { 'data-popup': true, 'data-url': popupUr
 
   .big {
     font-size: 40px;
+  }
+
+  .pic {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 4px 0 6px;
+    border-radius: 4px;
   }
 
   p {

@@ -33,4 +33,4 @@ const quiz = defineCollection({
   }),
 });
 
-export const collections = { resourceTypes, mods, modpacks, texturepacks, quiz };
+export const collections = { resourceTypes, mods, quiz };

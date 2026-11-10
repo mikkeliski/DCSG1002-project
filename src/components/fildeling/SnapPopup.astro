@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Modal from '@components/fildeling/Modal.astro';
-import { SINGLE_AD as ad } from '@data/singleAd';
+import { FRIEND_AD as ad } from '@data/friendAd';
 import { traps, trapAttrs } from '@data/traps';
 ---
 
@@ -9,16 +9,15 @@ import { traps, trapAttrs } from '@data/traps';
   <div class="sbox">
     <button class="sx" data-close aria-label="Lukk">✕</button>
     <div class="sphoto">
-      {/* loading="lazy" er standard: bildet hentes først når popupen vises */}
       <Image src={ad.image} alt="" />
       <span class="son">● Pålogget nå</span>
     </div>
     <h2>{ad.name}, {ad.age}</h2>
     <p class="sdist">📍 {ad.distance}</p>
-    <p class="smsg">«Hei! Jeg er alene hjemme i kveld 😘 Legg meg til på Snapchat så snakkes vi!»</p>
+    <p class="smsg">«Hei! Jeg er alene hjemme i kveld. Legg meg til på Snapchat så snakkes vi!»</p>
     <div class="ssnap">👻 Snapchat: <b>@{ad.snap}</b></div>
     <a class="sadd" {...trapAttrs(traps.snapchat)}>LEGG TIL PÅ SNAPCHAT</a>
-    <small class="sfoot">Annonse · 18+ · Over 2 300 singler online</small>
+    <small class="sfoot">Annonse · Over 2 300 venner online</small>
   </div>
 </Modal>
 

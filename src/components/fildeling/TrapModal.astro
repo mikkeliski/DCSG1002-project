@@ -4,7 +4,7 @@ import Modal from '@components/fildeling/Modal.astro';
 
 <Modal id="trap-modal">
   <div class="mbox">
-    <h2>❌ Falsk lenke!</h2>
+    <h2>Du trykket på en annonse!</h2>
     <p id="trap-why"></p>
     <p class="addr">Adressen var: <code id="trap-addr"></code></p>
     <button id="trap-ok">Prøv igjen</button>
@@ -18,7 +18,6 @@ import Modal from '@components/fildeling/Modal.astro';
   const why = document.getElementById('trap-why')!;
   const addr = document.getElementById('trap-addr')!;
 
-  // Alle elementer med data-fake (uansett komponent) havner her
   document.addEventListener('click', (e) => {
     const fake = (e.target as Element).closest<HTMLElement>('[data-fake]');
     if (!fake) return;
