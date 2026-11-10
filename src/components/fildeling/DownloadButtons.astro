@@ -1,5 +1,6 @@
 ---
 import { traps, trapAttrs } from '@data/traps';
+import { fill, useTranslations } from '@i18n/utils';
 
 interface Props {
   /** Adressen den ekte knappen viser i statuslinjen. */
@@ -11,23 +12,25 @@ interface Props {
 }
 
 const { url, size, next, countdown = 5 } = Astro.props;
+const lang = Astro.currentLocale;
+const t = useTranslations(lang).fildeling;
 
 const fakes = [
-  { variant: 'green', label: '⬇ START NEDLASTING', sub: 'Rask nedlasting · Anbefalt', trap: traps.greenButton },
-  { variant: 'orange', label: 'DOWNLOAD NOW', sub: 'Annonse', adTag: true, trap: traps.orangeButton },
-  { variant: 'grey', label: '⚡ Premium-nedlasting – 10x raskere', trap: traps.premium },
-  { variant: 'blue', label: '▶ Se video først (kodek kreves)', trap: traps.codec },
+  { variant: 'green', label: t.buttons.start, sub: t.buttons.startSub, trap: traps.greenButton },
+  { variant: 'orange', label: t.buttons.now, sub: t.adLabel, adTag: true, trap: traps.orangeButton },
+  { variant: 'grey', label: t.buttons.premium, trap: traps.premium },
+  { variant: 'blue', label: t.buttons.video, trap: traps.codec },
 ];
 ---
 
 <p class="timer">
-  Nedlastingen din er klar om <b data-countdown={countdown}>{countdown}</b> sekunder…
+  {t.timerBefore} <b data-countdown={countdown}>{countdown}</b> {t.timerAfter}
 </p>
 
 <div class="btnzone" id="download-zone">
   {
     fakes.map((b) => (
-      <a class:list={['dl', `dl-${b.variant}`]} {...trapAttrs(b.trap)}>
+      <a class:list={['dl', `dl-${b.variant}`]} {...trapAttrs(b.trap, lang)}>
         <span>{b.label}</span>
         {b.sub && <small class:list={{ adtag: b.adTag }}>{b.sub}</small>}
       </a>
@@ -35,7 +38,7 @@ const fakes = [
   }
   {/* Ingen href med vilje: da avslører ikke nettleserens egen statuslinje svaret */}
   <a class="dl dl-real" data-real data-url={url} data-next={next}>
-    <span>Last ned ({size})</span>
+    <span>{fill(t.buttons.real, { size })}</span>
   </a>
 </div>
 

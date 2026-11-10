@@ -1,0 +1,26 @@
+---
+import Global from '@layouts/Global.astro';
+import { langParams, useTranslations } from '@i18n/utils';
+
+export function getStaticPaths() {
+  return langParams.map((params) => ({ params }));
+}
+
+const t = useTranslations(Astro.currentLocale).home;
+---
+<Global title={t.title}>
+  <section class="banner">
+    <div class="wrap">
+      <h1>{t.heading}</h1>
+      <p set:html={t.introHtml} />
+    </div>
+  </section>
+  <main class="wrap">
+    <div class="rh">
+      <h2 id="title"></h2>
+      <span class="tag" id="count">
+      </span>
+    </div>
+    <div class="note">{t.note}</div>
+  </main>
+</Global>

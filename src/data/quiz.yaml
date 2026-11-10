@@ -1,54 +1,105 @@
-# answer er indeksen (fra 0) til riktig alternativ i options
+# order bestemmer rekkefølgen i quizen (Astro sorterer ellers etter id).
+# answer er indeksen (fra 0) til riktig alternativ i options.
+# Hver tekst finnes på norsk ('no') og engelsk (en). 'no' må stå i fnutter,
+# ellers kan YAML lese det som «false».
 - id: 'les-adressen'
-  question: 'Du skal laste ned en mod, og en stor grønn knapp sier «START NEDLASTING». Hva gjør du først?'
+  order: 1
+  question:
+    'no': 'Du skal laste ned en mod, og en stor grønn knapp sier «START NEDLASTING». Hva gjør du først?'
+    en: 'You’re downloading a mod, and a big green button says “START DOWNLOAD”. What do you do first?'
   options:
-    - 'Klikker, den er jo stor og tydelig'
-    - 'Holder musepekeren over den og leser adressen'
-    - 'Skrur av antivirus så nedlastingen går raskere'
+    - 'no': 'Klikker, den er jo stor og tydelig'
+      en: 'Click it, it’s big and obvious'
+    - 'no': 'Holder musepekeren over den og leser adressen'
+      en: 'Hover over it and read the address'
+    - 'no': 'Skrur av antivirus så nedlastingen går raskere'
+      en: 'Turn off the antivirus so the download goes faster'
   answer: 1
-  explanation: 'Adressen nederst i nettleseren viser hvor lenken faktisk går. Stor og tydelig betyr ikke trygg.'
+  explanation:
+    'no': 'Adressen nederst i nettleseren viser hvor lenken faktisk går. Stor og tydelig betyr ikke trygg.'
+    en: 'The address at the bottom of the browser shows where the link really goes. Big and obvious doesn’t mean safe.'
 
 - id: 'filtype'
-  question: 'Hvilken filtype forventer du for en Minecraft-mod?'
+  order: 2
+  question:
+    'no': 'Hvilken filtype forventer du for en Minecraft-mod?'
+    en: 'What file type do you expect for a Minecraft mod?'
   options:
-    - '.exe'
-    - '.jar'
-    - '.bat'
+    - 'no': '.exe'
+      en: '.exe'
+    - 'no': '.jar'
+      en: '.jar'
+    - 'no': '.bat'
+      en: '.bat'
   answer: 1
-  explanation: 'Moder er .jar-filer. Kjørbare filer som .exe og .bat skal du ikke få når du leter etter en mod.'
+  explanation:
+    'no': 'Moder er .jar-filer. Kjørbare filer som .exe og .bat skal du ikke få når du leter etter en mod.'
+    en: 'Mods are .jar files. You shouldn’t get executable files like .exe and .bat when you’re looking for a mod.'
 
 - id: 'virusvarsel'
-  question: 'En side viser «7 virus funnet på PC-en din! Klikk her». Hva betyr det?'
+  order: 3
+  question:
+    'no': 'En side viser «7 virus funnet på PC-en din! Klikk her». Hva betyr det?'
+    en: 'A site shows “7 viruses found on your PC! Click here”. What does that mean?'
   options:
-    - 'Du må skanne umiddelbart'
-    - 'Det er et falskt varsel, nettsider kan ikke skanne PC-en din'
-    - 'Nettleseren din er ødelagt'
+    - 'no': 'Du må skanne umiddelbart'
+      en: 'You need to scan right away'
+    - 'no': 'Det er et falskt varsel, nettsider kan ikke skanne PC-en din'
+      en: 'It’s a fake alert, websites can’t scan your PC'
+    - 'no': 'Nettleseren din er ødelagt'
+      en: 'Your browser is broken'
   answer: 1
-  explanation: 'Dette er en skremmetaktikk. Lukk fanen og ikke klikk på noe i varselet.'
+  explanation:
+    'no': 'Dette er en skremmetaktikk. Lukk fanen og ikke klikk på noe i varselet.'
+    en: 'This is a scare tactic. Close the tab and don’t click anything in the alert.'
 
 - id: 'annonse'
-  question: 'Hva betyr den lille teksten «Annonse» ved siden av en knapp?'
+  order: 4
+  question:
+    'no': 'Hva betyr den lille teksten «Annonse» ved siden av en knapp?'
+    en: 'What does the small text “Ad” next to a button mean?'
   options:
-    - 'Knappen er laget av sidens eier og er trygg'
-    - 'Det er reklame, og ikke den ekte nedlastingen'
-    - 'Filen er verifisert'
+    - 'no': 'Knappen er laget av sidens eier og er trygg'
+      en: 'The button was made by the site’s owner and is safe'
+    - 'no': 'Det er reklame, og ikke den ekte nedlastingen'
+      en: 'It’s an advert, not the real download'
+    - 'no': 'Filen er verifisert'
+      en: 'The file is verified'
   answer: 1
-  explanation: 'Annonser kan se ut som nedlastingsknapper, men de leder til tredjeparter.'
+  explanation:
+    'no': 'Annonser kan se ut som nedlastingsknapper, men de leder til tredjeparter.'
+    en: 'Ads can look like download buttons, but they lead to third parties.'
 
 - id: 'kodek'
-  question: 'Siden sier «Du må installere en kodek / nedlastingsbehandler for å laste ned». Hva gjør du?'
+  order: 5
+  question:
+    'no': 'Siden sier «Du må installere en kodek / nedlastingsbehandler for å laste ned». Hva gjør du?'
+    en: 'The site says “You must install a codec / download manager to download”. What do you do?'
   options:
-    - 'Installerer den, det går raskt'
-    - 'Avslutter og finner en annen kilde'
-    - 'Gir den administratortilgang'
+    - 'no': 'Installerer den, det går raskt'
+      en: 'Install it, it only takes a moment'
+    - 'no': 'Avslutter og finner en annen kilde'
+      en: 'Leave and find another source'
+    - 'no': 'Gir den administratortilgang'
+      en: 'Give it administrator access'
   answer: 1
-  explanation: 'En vanlig fil trenger ikke ekstra programvare. Slike krav er et tydelig varselstegn.'
+  explanation:
+    'no': 'En vanlig fil trenger ikke ekstra programvare. Slike krav er et tydelig varselstegn.'
+    en: 'An ordinary file doesn’t need extra software. Demands like that are a clear warning sign.'
 
 - id: 'kilde'
-  question: 'Hva er tryggest?'
+  order: 6
+  question:
+    'no': 'Hva er tryggest?'
+    en: 'What is safest?'
   options:
-    - 'Laste ned fra modens offisielle side'
-    - 'Laste ned fra den første lenken i et søk'
-    - 'Laste ned fra en lenke i en tilfeldig kommentar'
+    - 'no': 'Laste ned fra modens offisielle side'
+      en: 'Downloading from the mod’s official page'
+    - 'no': 'Laste ned fra den første lenken i et søk'
+      en: 'Downloading from the first link in a search'
+    - 'no': 'Laste ned fra en lenke i en tilfeldig kommentar'
+      en: 'Downloading from a link in a random comment'
   answer: 0
-  explanation: 'Gå til kilden. Jo færre mellomsider, desto mindre risiko.'
+  explanation:
+    'no': 'Gå til kilden. Jo færre mellomsider, desto mindre risiko.'
+    en: 'Go to the source. The fewer pages in between, the lower the risk.'

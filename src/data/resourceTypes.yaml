@@ -1,5 +1,8 @@
 - id: 'mods'
   order: 1
-  label: 'Mods'
-  description: 'Små tillegg som endrer eller utvider spillet.'
-
+  label:
+    'no': 'Mods'
+    en: 'Mods'
+  description:
+    'no': 'Små tillegg som endrer eller utvider spillet.'
+    en: 'Small add-ons that change or extend the game.'

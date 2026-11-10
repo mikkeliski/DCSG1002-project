@@ -1,0 +1,15 @@
+---
+import Global from '@layouts/Global.astro'
+import Banner from '@components/Banner.astro'
+import { langParams, useTranslations } from '@i18n/utils';
+
+export function getStaticPaths() {
+  return langParams.map((params) => ({ params }));
+}
+
+const t = useTranslations(Astro.currentLocale).quizPage;
+---
+<Global title={t.title}>
+  <Banner title={t.banner}>
+  </Banner>
+</Global>

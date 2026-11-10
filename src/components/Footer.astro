@@ -1,10 +1,12 @@
 ---
+import { useTranslations } from '@i18n/utils';
+
+const t = useTranslations(Astro.currentLocale);
 ---
 
 <footer>
   <div class="wrap">
-    Et skoleprosjekt om sikker nedlasting av filer · Blokhus, Gudmundsen, 
-    Helland, Søbstad
+    {t.footer}
   </div>
 <style>
    :root {

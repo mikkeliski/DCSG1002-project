@@ -1,0 +1,64 @@
+---
+import Global from '@layouts/Global.astro';
+import Quiz from '@components/Quiz.astro';
+import { langParams, localePath, useTranslations } from '@i18n/utils';
+
+export function getStaticPaths() {
+  return langParams.map((params) => ({ params }));
+}
+
+const lang = Astro.currentLocale;
+const t = useTranslations(lang).result;
+const modsPath = localePath(lang, '/mods');
+---
+
+<Global title={t.title}>
+  <main class="wrap result">
+    <div class="box">
+      <h1>{t.heading}</h1>
+      {/* Teksten fylles inn av skriptet under, ut fra antall falske klikk */}
+      <p id="summary" data-zero={t.summaryZero} data-one={t.summaryOne} data-many={t.summaryMany}></p>
+      <h2>{t.tipsTitle}</h2>
+      <ul class="list">
+        {t.tipsHtml.map((tip) => <li set:html={tip} />)}
+      </ul>
+      <a class="btn" id="again" href={modsPath}>{t.again}</a>
+    </div>
+
+    <div class="box">
+      <h2>{t.quizTitle}</h2>
+      <Quiz />
+    </div>
+  </main>
+</Global>
+
+<script>
+  import { store } from '@lib/store';
+
+  const fakes = store.get('fakeClicks', 0);
+  const summary = document.getElementById('summary')!;
+  const { zero, one, many } = summary.dataset;
+  summary.textContent = (fakes === 0 ? zero : fakes === 1 ? one : many)!.replace('{n}', String(fakes));
+
+  const again = document.getElementById('again') as HTMLAnchorElement;
+  again.href = store.get('lastDownload', again.getAttribute('href')!);
+</script>
+
+<style>
+  .result {
+    max-width: 800px;
+    margin-top: 24px;
+  }
+
+  .box + .box {
+    margin-top: 20px;
+  }
+
+  h1 {
+    margin-top: 0;
+  }
+
+  .list li {
+    margin: 6px 0;
+  }
+</style>

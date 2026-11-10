@@ -3,21 +3,25 @@ import { Image } from 'astro:assets';
 import Modal from '@components/fildeling/Modal.astro';
 import { FRIEND_AD as ad } from '@data/friendAd';
 import { traps, trapAttrs } from '@data/traps';
+import { getLang, useTranslations } from '@i18n/utils';
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang).fildeling.friendPopup;
 ---
 
 <Modal id="snap-modal">
   <div class="sbox">
-    <button class="sx" data-close aria-label="Lukk">✕</button>
+    <button class="sx" data-close aria-label={t.close}>✕</button>
     <div class="sphoto">
       <Image src={ad.image} alt="" />
-      <span class="son">● Pålogget nå</span>
+      <span class="son">{t.online}</span>
     </div>
     <h2>{ad.name}, {ad.age}</h2>
-    <p class="sdist">📍 {ad.distance}</p>
-    <p class="smsg">«Hei! Jeg er alene hjemme i kveld. Legg meg til på Snapchat så snakkes vi!»</p>
+    <p class="sdist">📍 {ad.distance[lang]}</p>
+    <p class="smsg">{t.message}</p>
     <div class="ssnap">👻 Snapchat: <b>@{ad.snap}</b></div>
-    <a class="sadd" {...trapAttrs(traps.snapchat)}>LEGG TIL PÅ SNAPCHAT</a>
-    <small class="sfoot">Annonse · Over 2 300 venner online</small>
+    <a class="sadd" {...trapAttrs(traps.snapchat, lang)}>{t.add}</a>
+    <small class="sfoot">{t.footer}</small>
   </div>
 </Modal>
 

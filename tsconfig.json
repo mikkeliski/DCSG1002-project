@@ -11,7 +11,8 @@
       "@styles/*": ["./src/styles/*"],
       "@data/*": ["./src/data/*"],
       "@images/*": ["./src/images/*"],
-      "@lib/*": ["./src/lib/*"]
+      "@lib/*": ["./src/lib/*"],
+      "@i18n/*": ["./src/i18n/*"]
     }
   }
 }

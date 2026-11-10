@@ -2,15 +2,19 @@
 // Den falske fildelingssiden. Egen layout fordi den skal se ut som en annen
 // nettside enn ModHavn (lyst tema, ingen ModHavn-meny).
 import StatusBar from '@components/StatusBar.astro';
+import { getLang, languageNames, locales, switchLangPath, useTranslations } from '@i18n/utils';
 
 interface Props {
   title: string;
 }
 
 const { title } = Astro.props;
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang).fildeling;
+const otherLangs = locales.filter((l) => l !== lang);
 ---
 
-<html lang="no">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -20,15 +24,19 @@ const { title } = Astro.props;
     <header class="fh">
       <div class="fw">
         <span class="flogo">FilDeling</span>
-        <nav><a>Logg inn</a><a>Premium</a><a class="up">Last opp</a></nav>
+        <nav>
+          {otherLangs.map((l) => (
+            <a href={switchLangPath(Astro.url.pathname, l)} hreflang={l} lang={l}>{languageNames[l]}</a>
+          ))}
+          <a>{t.nav.login}</a><a>{t.nav.premium}</a><a class="up">{t.nav.upload}</a>
+        </nav>
       </div>
     </header>
     <slot name="banner" />
     <slot />
     <footer class="ff">
       <div class="fw">
-        Et skoleprosjekt om sikker nedlasting. FilDeling er en fiktiv side for opplæring · ingen
-        ekte filer eller skadevare
+        {t.footer}
       </div>
     </footer>
     <StatusBar />

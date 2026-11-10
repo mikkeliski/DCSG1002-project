@@ -3,7 +3,7 @@ import image from '@images/bilde.jpg';
 export const FRIEND_AD = {
   name: 'Oskar',
   age: 19,
-  distance: '1,2 km unna',
+  distance: { no: '1,2 km unna', en: '1.2 km away' },
   image,
   snap: 'oskar_hel321',
   adUrl: 'http://venner-i-ditt-omrade.example/chat',

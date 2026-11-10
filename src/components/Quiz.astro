@@ -1,26 +1,38 @@
 ---
 import { getCollection } from 'astro:content';
+import { fill, getLang, localePath, useTranslations } from '@i18n/utils';
 
-const questions = await getCollection('quiz');
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang).quiz;
+const questions = (await getCollection('quiz')).sort((a, b) => a.data.order - b.data.order);
 const total = questions.length;
 ---
 
-<div class="quiz" id="quiz">
+{/* Tekstene skriptet trenger, ligger i data-attributter på riktig språk */}
+<div
+  class="quiz"
+  id="quiz"
+  data-correct={t.correct}
+  data-wrong={t.wrong}
+  data-high={t.scoreHigh}
+  data-mid={t.scoreMid}
+  data-low={t.scoreLow}
+>
   {
     questions.map(({ data: q }, i) => (
       <div class="q" data-answer={q.answer} hidden={i > 0}>
-        <small>Spørsmål {i + 1} av {total}</small>
-        <h4>{q.question}</h4>
+        <small>{fill(t.progress, { n: i + 1, total })}</small>
+        <h4>{q.question[lang]}</h4>
         {q.options.map((option) => (
           <button class="opt" type="button">
-            {option}
+            {option[lang]}
           </button>
         ))}
         <div class="exp" hidden>
-          <span class="verdict"></span> {q.explanation}
+          <span class="verdict"></span> {q.explanation[lang]}
           <br />
           <button class="btn next" type="button">
-            {i === total - 1 ? 'Se resultat' : 'Neste'}
+            {i === total - 1 ? t.seeResult : t.next}
           </button>
         </div>
       </div>
@@ -30,12 +42,13 @@ const total = questions.length;
   <div class="final" hidden>
     <div class="big" id="quiz-score"></div>
     <p id="quiz-msg"></p>
-    <a class="btn" href="/mods">Last ned en annen mod</a>
+    <a class="btn" href={localePath(lang, '/mods')}>{t.another}</a>
   </div>
 </div>
 
 <script>
   const quiz = document.getElementById('quiz')!;
+  const text = quiz.dataset;
   const steps = [...quiz.querySelectorAll<HTMLElement>('.q')];
   const final = quiz.querySelector<HTMLElement>('.final')!;
   let score = 0;
@@ -44,11 +57,7 @@ const total = questions.length;
     final.hidden = false;
     document.getElementById('quiz-score')!.textContent = `${score} / ${steps.length}`;
     document.getElementById('quiz-msg')!.textContent =
-      score >= 5
-        ? 'Flott! Du er godt rustet mot falske nedlastingsknapper.'
-        : score >= 3
-          ? 'Bra jobbet, men les gjennom tipsene over en gang til.'
-          : 'Les tipsene over og prøv øvingssiden en gang til.';
+      (score >= 5 ? text.high : score >= 3 ? text.mid : text.low) ?? '';
   }
 
   steps.forEach((step, i) => {
@@ -64,7 +73,7 @@ const total = questions.length;
           else if (n === k) b.classList.add('bad');
         });
         if (k === correct) score++;
-        exp.querySelector('.verdict')!.textContent = k === correct ? 'Riktig!' : 'Ikke helt.';
+        exp.querySelector('.verdict')!.textContent = (k === correct ? text.correct : text.wrong) ?? '';
         exp.hidden = false;
       });
     });

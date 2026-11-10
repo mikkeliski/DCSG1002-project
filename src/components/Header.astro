@@ -1,24 +1,43 @@
 ---
 import { getCollection } from 'astro:content';
+import { getLang, languageNames, localePath, locales, switchLangPath, useTranslations } from '@i18n/utils';
 
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
 const resourceTypes = (await getCollection('resourceTypes'))
   .sort((a, b) => a.data.order - b.data.order);
-const path = Astro.url.pathname;
+const path = Astro.url.pathname.replace(/\/$/, '');
+
+// Språkvelger: lenker til samme side på de andre språkene
+const otherLangs = locales.filter((l) => l !== lang);
 ---
 
 <header id="hdr" class="top">
   <div class="wrap nav">
-    <a class="logo" href="/"><i></i>ModHavn</a>
-    {resourceTypes.map(({ data }) => (
-      <a class:list={['l', { on: path.startsWith(`/${data.id}`) }]} href={`/${data.id}`}>
-        {data.label}
+    <a class="logo" href={localePath(lang, '/')}><i></i>ModHavn</a>
+    {resourceTypes.map(({ data }) => {
+      const href = localePath(lang, `/${data.id}`);
+      return (
+        <a class:list={['l', { on: path === href || path.startsWith(`${href}/`) }]} href={href}>
+          {data.label[lang]}
+        </a>
+      );
+    })}
+    <a class="l" href={localePath(lang, '/about')}>{t.header.about}</a>
+    <a class="l" href={localePath(lang, '/learn')}>{t.header.learn}</a>
+    {otherLangs.map((l) => (
+      <a class="l lang" href={switchLangPath(Astro.url.pathname, l)} hreflang={l} lang={l}>
+        {languageNames[l]}
       </a>
     ))}
-    <a class="l" href="/about">Om ModHavn</a>
-    <a class="l" href="/learn">Lær mer</a>
   </div>
 </header>
 <style>
+  /* Språkvelgeren legger seg ytterst til høyre i menyen */
+  .lang {
+    margin-left: auto;
+  }
+
   :root {
     --bg: #16181c;
     --panel: #1e2126;

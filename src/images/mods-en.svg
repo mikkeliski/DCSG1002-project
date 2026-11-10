@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240" width="300" height="240"><style>
+.t{font-family:Impact,Haettenschweiler,'Arial Black','DejaVu Sans',sans-serif;font-weight:900;paint-order:stroke fill;stroke:#000;stroke-linejoin:round}
+.s{font-family:'Arial Black',Arial,'DejaVu Sans',sans-serif;font-weight:900}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse .8s ease-in-out infinite alternate}
+.blink{animation:blink 1s steps(1) infinite}
+.bounce{animation:bounce .6s ease-in-out infinite alternate}
+.tw{animation:tw 1.2s ease-in-out infinite}
+@keyframes pulse{to{transform:scale(1.12)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes bounce{to{transform:translateY(-9px)}}
+@keyframes tw{50%{opacity:.15}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
+.bob{animation:bob .7s ease-in-out infinite alternate}@keyframes bob{to{transform:translateY(-8px)}}
+.march{animation:march .6s linear infinite}@keyframes march{to{stroke-dashoffset:-22}}</style>
+<defs>
+  <pattern id="px" width="40" height="40" patternUnits="userSpaceOnUse">
+    <rect width="40" height="40" fill="#7c4dff"/><rect width="20" height="20" fill="#6a3de8"/><rect x="20" y="20" width="20" height="20" fill="#6a3de8"/>
+  </pattern>
+</defs>
+<rect width="300" height="240" fill="url(#px)"/>
+<g class="pulse"><text class="t" x="150" y="66" font-size="60" text-anchor="middle" fill="#ffe600" stroke-width="9" textLength="182" lengthAdjust="spacingAndGlyphs">1000+</text></g>
+<text class="t" x="150" y="101" font-size="28" text-anchor="middle" fill="#fff" stroke-width="7" textLength="116" lengthAdjust="spacingAndGlyphs">MODS!!</text>
+<g class="bob" style="animation-delay:0.00s"><polygon points="100,140 108,132 132,132 124,140" fill="#69f0ae" stroke="#000" stroke-width="2" stroke-linejoin="round"/><polygon points="124,140 132,132 132,156 124,164" fill="#00a152" stroke="#000" stroke-width="2" stroke-linejoin="round"/><rect x="100" y="140" width="24" height="24" fill="#00e676" stroke="#000" stroke-width="2"/><rect x="104" y="144" width="6" height="6" fill="#fff" opacity=".55"/><rect x="114" y="154" width="6" height="6" fill="#000" opacity=".2"/></g><g class="bob" style="animation-delay:0.18s"><polygon points="128,126 136,118 160,118 152,126" fill="#ffff8d" stroke="#000" stroke-width="2" stroke-linejoin="round"/><polygon points="152,126 160,118 160,142 152,150" fill="#c7b800" stroke="#000" stroke-width="2" stroke-linejoin="round"/><rect x="128" y="126" width="24" height="24" fill="#ffea00" stroke="#000" stroke-width="2"/><rect x="132" y="130" width="6" height="6" fill="#fff" opacity=".55"/><rect x="142" y="140" width="6" height="6" fill="#000" opacity=".2"/></g><g class="bob" style="animation-delay:0.36s"><polygon points="156,142 164,134 188,134 180,142" fill="#ff80ab" stroke="#000" stroke-width="2" stroke-linejoin="round"/><polygon points="180,142 188,134 188,158 180,166" fill="#c60055" stroke="#000" stroke-width="2" stroke-linejoin="round"/><rect x="156" y="142" width="24" height="24" fill="#ff4081" stroke="#000" stroke-width="2"/><rect x="160" y="146" width="6" height="6" fill="#fff" opacity=".55"/><rect x="170" y="156" width="6" height="6" fill="#000" opacity=".2"/></g><g class="bob" style="animation-delay:0.54s"><polygon points="178,124 186,116 210,116 202,124" fill="#80d8ff" stroke="#000" stroke-width="2" stroke-linejoin="round"/><polygon points="202,124 210,116 210,140 202,148" fill="#0094cc" stroke="#000" stroke-width="2" stroke-linejoin="round"/><rect x="178" y="124" width="24" height="24" fill="#40c4ff" stroke="#000" stroke-width="2"/><rect x="182" y="128" width="6" height="6" fill="#fff" opacity=".55"/><rect x="192" y="138" width="6" height="6" fill="#000" opacity=".2"/></g><g class="bob" style="animation-delay:0.72s"><polygon points="112,120 120,112 144,112 136,120" fill="#ffd180" stroke="#000" stroke-width="2" stroke-linejoin="round"/><polygon points="136,120 144,112 144,136 136,144" fill="#c56200" stroke="#000" stroke-width="2" stroke-linejoin="round"/><rect x="112" y="120" width="24" height="24" fill="#ff9100" stroke="#000" stroke-width="2"/><rect x="116" y="124" width="6" height="6" fill="#fff" opacity=".55"/><rect x="126" y="134" width="6" height="6" fill="#000" opacity=".2"/></g>
+<g>
+  <rect x="88" y="164" width="124" height="56" rx="4" fill="#ff1744" stroke="#000" stroke-width="4"/>
+  <rect x="88" y="164" width="124" height="12" fill="#ff5252" stroke="#000" stroke-width="4"/>
+  <rect x="142" y="186" width="16" height="12" rx="2" fill="#ffd600" stroke="#000" stroke-width="2.5"/>
+  <rect x="150" y="150" width="68" height="10" rx="2" fill="#ff5252" stroke="#000" stroke-width="3.5" transform="rotate(32 214 162)"/>
+</g>
+<g class="bounce" style="animation-duration:.45s">
+  <polygon points="32,118 56,118 56,166 74,166 44,204 14,166 32,166" fill="#ff1744" stroke="#000" stroke-width="3.5" stroke-linejoin="round"/>
+</g>
+<g class="blink" transform="rotate(14 250 132)">
+  <rect x="210" y="114" width="80" height="36" rx="4" fill="#ff1744" stroke="#fff" stroke-width="3.5"/>
+  <rect x="210" y="114" width="80" height="36" rx="4" fill="none" stroke="#000" stroke-width="1.5"/>
+  <text class="t" x="250" y="141" font-size="26" text-anchor="middle" fill="#fff" stroke-width="3" textLength="50" lengthAdjust="spacingAndGlyphs">FREE</text>
+</g>
+<rect x="3" y="3" width="294" height="234" fill="none" stroke="#39ff14" stroke-width="6" stroke-dasharray="14 8" class="march"/></svg>

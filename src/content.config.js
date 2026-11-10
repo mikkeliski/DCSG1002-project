@@ -2,13 +2,16 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { file } from 'astro/loaders';
 
+// Tekst som finnes på begge språk: { no: '…', en: '…' }
+const localized = z.object({ no: z.string(), en: z.string() });
+
 const resourceTypes = defineCollection({
   loader: file('src/data/resourceTypes.yaml'),
   schema: z.object({
     id: z.enum(['mods']),
     order: z.number(),
-    label: z.string(),
-    description: z.string(),
+    label: localized,
+    description: localized,
   }),
 });
 
@@ -26,10 +29,11 @@ const quiz = defineCollection({
   loader: file('src/data/quiz.yaml'),
   schema: z.object({
     id: z.string(),
-    question: z.string(),
-    options: z.array(z.string()).min(2),
+    order: z.number(),
+    question: localized,
+    options: z.array(localized).min(2),
     answer: z.number().int().min(0),
-    explanation: z.string(),
+    explanation: localized,
   }),
 });
 

@@ -1,13 +1,16 @@
 ---
 import Modal from '@components/fildeling/Modal.astro';
+import { useTranslations } from '@i18n/utils';
+
+const t = useTranslations(Astro.currentLocale).fildeling.trapModal;
 ---
 
 <Modal id="trap-modal">
   <div class="mbox">
-    <h2>Du trykket på en annonse!</h2>
+    <h2>{t.title}</h2>
     <p id="trap-why"></p>
-    <p class="addr">Adressen var: <code id="trap-addr"></code></p>
-    <button id="trap-ok">Prøv igjen</button>
+    <p class="addr">{t.address} <code id="trap-addr"></code></p>
+    <button id="trap-ok">{t.retry}</button>
   </div>
 </Modal>
 
