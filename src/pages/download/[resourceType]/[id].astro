@@ -6,6 +6,7 @@ import AdCard from '@components/fildeling/AdCard.astro';
 import java from '@images/java-icon.svg';
 import win from '@images/win.svg';
 import mods from '@images/mods.svg';
+import oskar from '@images/bilde.jpg';
 import DownloadButtons from '@components/fildeling/DownloadButtons.astro';
 import SnapPopup from '@components/fildeling/SnapPopup.astro';
 import TrapModal from '@components/fildeling/TrapModal.astro';
@@ -41,8 +42,24 @@ const realUrl = `https://download.fildeling.example/file/k3x9q2/${fileName}`;
 ---
 
 <FilDeling title={`FilDeling – Last ned ${fileName}`}>
-  <div slot="banner" class="topad" {...trapAttrs(traps.virusBanner)}>
-    ⚠️ <b>ADVARSEL:</b> PC-en din kan være infisert med 7 virus! <u>Klikk her for gratis skanning</u>
+  <div slot="banner" class="fw adslot">
+    <small class="adlabel">Annonse</small>
+    <div class="topad" {...trapAttrs(traps.virusBanner)}>
+      <svg class="shield" viewBox="0 0 48 56" aria-hidden="true">
+        <path d="M24 2 44 10v16c0 14-9 23-20 28C13 49 4 40 4 26V10Z" fill="#ff1f3d" stroke="#fff" stroke-width="3" />
+        <rect x="21" y="13" width="6" height="21" rx="2" fill="#fff" />
+        <circle cx="24" cy="42" r="3.5" fill="#fff" />
+      </svg>
+      <div class="msg">
+        <strong>ADVARSEL: PC-en din kan være infisert med 7 virus!</strong>
+        <span class="scanline">
+          <span class="bar"><span></span></span>
+          Skanner systemet … <b class="threats">7 TRUSLER FUNNET</b>
+        </span>
+      </div>
+      <span class="cta">SKANN GRATIS NÅ</span>
+      <span class="choices" aria-hidden="true">▷</span>
+    </div>
   </div>
 
   <div class="fw cols">
@@ -96,9 +113,9 @@ const realUrl = `https://download.fildeling.example/file/k3x9q2/${fileName}`;
 
     <aside class="side">
       <AdCard
-        icon="🔥"
+        image={oskar}
         title="Venner i ditt område"
-        text="Vil chatte nå?"
+        text="Vil du chatte nå?"
         cta="START"
         color="pink"
         popupUrl={FRIEND_AD.adUrl}
@@ -131,22 +148,157 @@ const realUrl = `https://download.fildeling.example/file/k3x9q2/${fileName}`;
 </script>
 
 <style>
-  /* ===== Toppbanner ===== */
-  .topad {
-    display: block;
-    padding: 10px;
-    background: #ffe600;
-    color: #900;
-    font-weight: 700;
-    text-align: center;
-    cursor: pointer;
-    animation: flash 1s infinite;
+  /* ===== Toppbanner (728×90-annonse under headeren) ===== */
+  .adslot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 14px;
   }
 
-  @keyframes flash {
+  .adlabel {
+    width: 100%;
+    max-width: 728px;
+    margin-bottom: 2px;
+    color: #99a;
+    font-size: 10px;
+  }
+
+  .topad {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 728px;
+    min-height: 90px;
+    padding: 10px 22px 10px 16px;
+    background: linear-gradient(90deg, #0b1633, #1d2f63);
+    color: #fff;
+    border: 1px solid #cfd8e3;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .topad:hover {
+    border-color: #f90;
+  }
+
+  .shield {
+    flex: none;
+    width: 42px;
+    height: 50px;
+    animation: topad-pulse 0.8s ease-in-out infinite alternate;
+  }
+
+  .msg {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .msg strong {
+    color: #ffe600;
+    font-size: 17px;
+    line-height: 1.2;
+  }
+
+  .scanline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    color: #c9d3ea;
+    font-size: 12px;
+  }
+
+  .bar {
+    width: 120px;
+    height: 8px;
+    background: #2c3c6e;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .bar span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #ff1f3d;
+    transform-origin: left;
+    animation: topad-scan 2.4s ease-out infinite;
+  }
+
+  .threats {
+    color: #ff4d5e;
+    animation: topad-blink 1s steps(1) infinite;
+  }
+
+  .cta {
+    flex: none;
+    padding: 12px 16px;
+    background: linear-gradient(#3ee05a, #18a634);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 3px 0 #0d6e22;
+    font-size: 15px;
+    font-weight: 900;
+    animation: topad-pulse 0.8s ease-in-out infinite alternate;
+  }
+
+  /* Den lille «AdChoices»-trekanten ekte annonser har i hjørnet */
+  .choices {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 4px;
+    background: #fff;
+    color: #09f;
+    border-bottom-left-radius: 4px;
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  @keyframes topad-pulse {
+    to {
+      transform: scale(1.06);
+    }
+  }
+
+  @keyframes topad-scan {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(0.73);
+    }
+  }
+
+  @keyframes topad-blink {
     50% {
-      background: #ff5252;
-      color: #fff;
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .topad {
+      flex-wrap: wrap;
+    }
+
+    .cta {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shield,
+    .bar span,
+    .threats,
+    .cta {
+      animation: none;
     }
   }
 

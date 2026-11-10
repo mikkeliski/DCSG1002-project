@@ -17,13 +17,13 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <slot name="banner" />
     <header class="fh">
       <div class="fw">
         <span class="flogo">FilDeling</span>
         <nav><a>Logg inn</a><a>Premium</a><a class="up">Last opp</a></nav>
       </div>
     </header>
+    <slot name="banner" />
     <slot />
     <footer class="ff">
       <div class="fw">
