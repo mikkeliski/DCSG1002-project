@@ -29,3 +29,54 @@
   feat:
     - 'Advanced tech mod with a progression track'
     - 'NEW: added chemistry'
+
+- id: 'thewizzardofozzy'
+  name: 'Ozzy'
+  icon: '🙇‍♂️'
+  color: '#FF0000'
+  loader: 'Uplink'
+  gameVersion: '23.7.16'
+  modVersion: '2.6'
+  size: '76 mb'
+  downloads: 18
+  stars: 2
+  author: 'John Snow'
+  date: 'June 24. 2017'
+  feat:
+    - 'Creepers anxiety'
+    - 'If you hug one (no explosions and it becomes your pet), 
+       no hug and it becomes worse'
+    
+- id: 'bigmeeks'
+  name: 'Mikz'
+  icon: '🫃'
+  color: '#964B00'
+  loader: 'Herds'
+  gameVersion: '23.2.15'
+  modVersion: '3.2'
+  size: '118 mb'
+  downloads: 76438
+  stars: 23554
+  author: 'Celine Dion'
+  date: 'June 24. 2020'
+  feat:
+    - 'Optional Gravity'
+    - 'Gravity randomly flips for a split second, 
+       so your sand and gravel float away'
+
+- id: 'Joey'
+  name: 'Joey'
+  icon: '🧑‍🌾'
+  color: '#4CAF50'
+  loader: 'Herds'
+  gameVersion: '23.2.15'
+  modVersion: '1.4'
+  size: '64 mb'
+  downloads: 51209
+  stars: 18733
+  author: 'Bob Marley'
+  date: 'March 3. 2021'
+  feat: 
+    - 'Collective Bargaining'
+    - 'Villagers strike when trade prices get too low, and picket outside their
+       own houses'
