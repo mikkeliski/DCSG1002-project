@@ -2,6 +2,7 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
 import { getCollection } from 'astro:content';
 import Global from '@layouts/Global.astro';
+import { getLang, langParams, localePath, useTranslations } from '@i18n/utils';
 
 export const getStaticPaths = (async () => {
   const resourceTypes = await getCollection('resourceTypes');
@@ -10,10 +11,12 @@ export const getStaticPaths = (async () => {
     resourceTypes.map(async ({ data: type }) => {
       const entries = await getCollection(type.id);
 
-      return entries.map(({ data }) => ({
-        params: { resourceType: type.id, id: data.id },
-        props: { type, item: data },
-      }));
+      return langParams.flatMap((lang) =>
+        entries.map(({ data }) => ({
+          params: { ...lang, resourceType: type.id, id: data.id },
+          props: { type, item: data },
+        })),
+      );
     })
   );
 
@@ -23,11 +26,13 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { type, item } = Astro.props;
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang);
 
 const loader = 'loader' in item ? item.loader : undefined;
 const version = 'modpackVersion' 
   in item ? item.modpackVersion : item.modVersion;
-const formatNumber = (n: number) => n.toLocaleString('nb-NO');
+const formatNumber = (n: number) => n.toLocaleString(t.meta.numberLocale);
 const downloadUrl = `https://modhavn.example/${type.id}/${item.id}/download`;
 ---
 
@@ -38,7 +43,7 @@ const downloadUrl = `https://modhavn.example/${type.id}/${item.id}/download`;
       aria-hidden="true">{item.icon}</div>
       <div>
         <h1>{item.name}</h1>
-        <span class="tag">{type.label}</span>
+        <span class="tag">{type.label[lang]}</span>
         {loader && <span class="tag">{loader}</span>}
         <span class="tag">{item.gameVersion}</span>
         <span class="tag">⬇ {formatNumber(item.downloads)}</span>
@@ -49,13 +54,10 @@ const downloadUrl = `https://modhavn.example/${type.id}/${item.id}/download`;
     <div class="layout">
       <div class="box">
         <div class="tabs">
-          <span class="on">Beskrivelse</span>
-          <span>Filer</span>
-          <span>Bilder</span>
-          <span>Endringslogg</span>
+          {t.mod.tabs.map((tab, i) => <span class:list={{ on: i === 0 }}>{tab}</span>)}
         </div>
 
-        <h2>Funksjoner</h2>
+        <h2>{t.mod.features}</h2>
         <ul>
           {item.feat.map((f) => <li>{f}</li>)}
         </ul>
@@ -63,18 +65,18 @@ const downloadUrl = `https://modhavn.example/${type.id}/${item.id}/download`;
 
       <aside>
         <div class="box">
-          <a class="btn block" href={`/download?id=${item.id}`} 
-            data-url={downloadUrl}>⬇ Last ned</a>
+          <a class="btn block" href={localePath(lang, `/download/${type.id}/${item.id}`)}
+            data-url={downloadUrl}>{t.mod.download}</a>
           <dl>
-            <dt>Versjon</dt>
+            <dt>{t.mod.version}</dt>
             <dd>{version}</dd>
-            <dt>Filstørrelse</dt>
+            <dt>{t.mod.fileSize}</dt>
             <dd>{item.size}</dd>
-            <dt>Utgitt</dt>
+            <dt>{t.mod.released}</dt>
             <dd>{item.date}</dd>
-            <dt>Forfatter</dt>
+            <dt>{t.mod.author}</dt>
             <dd>{item.author}</dd>
-            <dt>Lisens</dt>
+            <dt>{t.mod.license}</dt>
             <dd>MIT</dd>
           </dl>
         </div>

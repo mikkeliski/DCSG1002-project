@@ -1,0 +1,87 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { trapAttrs, type Trap } from '@data/traps';
+import { useTranslations } from '@i18n/utils';
+
+interface Props {
+  icon?: string;
+  image?: ImageMetadata;
+  title: string;
+  text: string;
+  cta: string;
+  color?: 'red' | 'blue' | 'pink';
+  trap?: Trap;
+  popupUrl?: string;
+}
+
+const { icon, image, title, text, cta, color = 'red', trap, popupUrl } = Astro.props;
+const t = useTranslations(Astro.currentLocale).fildeling;
+const attrs = trap ? trapAttrs(trap, Astro.currentLocale) : { 'data-popup': true, 'data-url': popupUrl };
+---
+
+<div class="ad" {...attrs}>
+  <small>{t.adLabel}</small>
+  {image ? <Image src={image} alt="" width={340} class="pic" /> : icon && <div class="big">{icon}</div>}
+  <b>{title}</b>
+  <p>{text}</p>
+  <span class:list={['gbtn', color]}>{cta}</span>
+</div>
+
+<style>
+  .ad {
+    margin-bottom: 14px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #cfd8e3;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .ad:hover {
+    border-color: #f90;
+  }
+
+  small {
+    display: block;
+    text-align: right;
+    color: #aaa;
+    font-size: 9px;
+  }
+
+  .big {
+    font-size: 40px;
+  }
+
+  .pic {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 4px 0 6px;
+    border-radius: 4px;
+  }
+
+  p {
+    margin: 4px 0 8px;
+    font-size: 12px;
+  }
+
+  .gbtn {
+    display: inline-block;
+    padding: 6px 10px;
+    background: #e22;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .gbtn.blue {
+    background: #07f;
+  }
+
+  .gbtn.pink {
+    background: #e0237a;
+  }
+</style>

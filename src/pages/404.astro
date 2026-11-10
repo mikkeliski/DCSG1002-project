@@ -1,11 +1,12 @@
 ---
 import Global from '@layouts/Global.astro'
 import Banner from '@components/Banner.astro'
+import { no } from '@i18n/no';
+import { en } from '@i18n/en';
 ---
-<Global>
+{/* Én 404-side for begge språk (nginx viser /404.html), så teksten står på begge */}
+<Global title="404 – ModHavn">
   <Banner title="404">
-    <p>
-      Kunne ikke finne siden.
-    </p>
+    <p>{no.notFound.text} <span lang="en">{en.notFound.text}</span></p>
   </Banner>
 </Global>

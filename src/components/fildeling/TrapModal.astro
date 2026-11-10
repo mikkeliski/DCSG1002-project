@@ -1,0 +1,79 @@
+---
+import Modal from '@components/fildeling/Modal.astro';
+import { useTranslations } from '@i18n/utils';
+
+const t = useTranslations(Astro.currentLocale).fildeling.trapModal;
+---
+
+<Modal id="trap-modal">
+  <div class="mbox">
+    <h2>{t.title}</h2>
+    <p id="trap-why"></p>
+    <p class="addr">{t.address} <code id="trap-addr"></code></p>
+    <button id="trap-ok">{t.retry}</button>
+  </div>
+</Modal>
+
+<script>
+  import { store } from '@lib/store';
+
+  const modal = document.getElementById('trap-modal')!;
+  const why = document.getElementById('trap-why')!;
+  const addr = document.getElementById('trap-addr')!;
+
+  document.addEventListener('click', (e) => {
+    const fake = (e.target as Element).closest<HTMLElement>('[data-fake]');
+    if (!fake) return;
+    e.preventDefault();
+
+    const url = fake.dataset.url ?? '';
+    const seen = store.get<string[]>('seen', []);
+    if (!seen.includes(url)) store.set('seen', [...seen, url]);
+    store.set('fakeClicks', store.get('fakeClicks', 0) + 1);
+
+    why.textContent = fake.dataset.why ?? '';
+    addr.textContent = url;
+
+    document.querySelectorAll<HTMLElement>('[data-modal]').forEach((m) => (m.hidden = true));
+    modal.hidden = false;
+  });
+
+  document.getElementById('trap-ok')!.addEventListener('click', () => {
+    modal.hidden = true;
+  });
+</script>
+
+<style>
+  .mbox {
+    max-width: 480px;
+    margin: 16px;
+    padding: 24px;
+    background: #fff;
+    border-radius: 10px;
+    border-top: 6px solid #d00;
+  }
+
+  h2 {
+    margin-top: 0;
+    color: #b00;
+  }
+
+  .addr code {
+    padding: 2px 6px;
+    background: #f1f1f1;
+    border-radius: 4px;
+    font-size: 12px;
+    word-break: break-all;
+  }
+
+  button {
+    margin-top: 8px;
+    padding: 10px 20px;
+    background: #0070ff;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+</style>

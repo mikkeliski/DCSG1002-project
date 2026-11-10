@@ -1,0 +1,412 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { getCollection } from 'astro:content';
+import FilDeling from '@layouts/FilDeling.astro';
+import AdCard from '@components/fildeling/AdCard.astro';
+import java from '@images/java-icon.svg';
+import win from '@images/win.svg';
+import winEn from '@images/win-en.svg';
+import mods from '@images/mods.svg';
+import modsEn from '@images/mods-en.svg';
+import oskar from '@images/bilde.jpg';
+import DownloadButtons from '@components/fildeling/DownloadButtons.astro';
+import SnapPopup from '@components/fildeling/SnapPopup.astro';
+import TrapModal from '@components/fildeling/TrapModal.astro';
+import VirusAlert from '@components/fildeling/VirusAlert.astro';
+import { FRIEND_AD } from '@data/friendAd';
+import { traps, trapAttrs } from '@data/traps';
+import { fill, getLang, langParams, localePath, useTranslations } from '@i18n/utils';
+
+export const getStaticPaths = (async () => {
+  const resourceTypes = await getCollection('resourceTypes');
+
+  const paths = await Promise.all(
+    resourceTypes.map(async ({ data: type }) => {
+      const entries = await getCollection(type.id);
+
+      return langParams.flatMap((lang) =>
+        entries.map(({ data }) => ({
+          params: { ...lang, resourceType: type.id, id: data.id },
+          props: { type, item: data },
+        })),
+      );
+    })
+  );
+
+  return paths.flat();
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { type, item } = Astro.props;
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang).fildeling;
+
+// Annonsebildene med tekst i har én versjon per språk
+const adImages = {
+  no: { prize: win, mods },
+  en: { prize: winEn, mods: modsEn },
+}[lang];
+
+const version = 'modpackVersion' in item ? item.modpackVersion : item.modVersion;
+const ext = type.id === 'mods' ? 'jar' : 'zip';
+const fileName = `${item.id}-${version}.${ext}`;
+const realUrl = `https://download.fildeling.example/file/k3x9q2/${fileName}`;
+---
+
+<FilDeling title={fill(t.title, { file: fileName })}>
+  <div slot="banner" class="fw adslot">
+    <small class="adlabel">{t.adLabel}</small>
+    <div class="topad" {...trapAttrs(traps.virusBanner, lang)}>
+      <svg class="shield" viewBox="0 0 48 56" aria-hidden="true">
+        <path d="M24 2 44 10v16c0 14-9 23-20 28C13 49 4 40 4 26V10Z" fill="#ff1f3d" stroke="#fff" stroke-width="3" />
+        <rect x="21" y="13" width="6" height="21" rx="2" fill="#fff" />
+        <circle cx="24" cy="42" r="3.5" fill="#fff" />
+      </svg>
+      <div class="msg">
+        <strong>{t.topad.headline}</strong>
+        <span class="scanline">
+          <span class="bar"><span></span></span>
+          {t.topad.scanning} <b class="threats">{t.topad.threats}</b>
+        </span>
+      </div>
+      <span class="cta">{t.topad.cta}</span>
+      <span class="choices" aria-hidden="true">▷</span>
+    </div>
+  </div>
+
+  <div class="fw cols">
+    <aside class="side">
+      <AdCard image={adImages.prize} {...t.ads.prize} trap={traps.prize} />
+      <AdCard image={java} {...t.ads.java} color="blue" trap={traps.javaUpdate} />
+    </aside>
+
+    <main class="main">
+      <div class="file">
+        <div class="fi">📦</div>
+        <div>
+          <h1>{fileName}</h1>
+          <p>{item.size} · {t.uploadedBy} {item.author} · {item.date}</p>
+        </div>
+      </div>
+
+      <VirusAlert />
+      <DownloadButtons url={realUrl} size={item.size} next={localePath(lang, '/result')} />
+
+      <div class="banner" {...trapAttrs(traps.vpnBanner, lang)}>
+        <small>{t.adLabel}</small>
+        <span class="blink">{t.vpnBanner}</span>
+      </div>
+
+      <div class="info">
+        <h3>{t.aboutFile}</h3>
+        <p>{fill(t.fileInfo, { ext, size: item.size })}</p>
+      </div>
+
+      <p class="hintrow">{t.stuck} <a href="#" id="hint">{t.showHint}</a></p>
+      <p class="hinttxt" id="hinttxt" hidden set:html={fill(t.hintHtml, { ext })} />
+    </main>
+
+    <aside class="side">
+      <AdCard image={oskar} {...t.ads.friends} color="pink" popupUrl={FRIEND_AD.adUrl} />
+      <AdCard image={adImages.mods} {...t.ads.mods} trap={traps.modPack} />
+    </aside>
+  </div>
+
+  <SnapPopup />
+  <TrapModal />
+</FilDeling>
+
+<script>
+  import { store } from '@lib/store';
+
+  store.set('fakeClicks', store.get('fakeClicks', 0));
+  store.set('lastDownload', location.pathname);
+
+  document.getElementById('hint')!.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('hinttxt')!.hidden = false;
+    store.set('hint', true);
+  });
+</script>
+
+<style>
+  /* ===== Toppbanner (728×90-annonse under headeren) ===== */
+  .adslot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 14px;
+  }
+
+  .adlabel {
+    width: 100%;
+    max-width: 728px;
+    margin-bottom: 2px;
+    color: #99a;
+    font-size: 10px;
+  }
+
+  .topad {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 728px;
+    min-height: 90px;
+    padding: 10px 22px 10px 16px;
+    background: linear-gradient(90deg, #0b1633, #1d2f63);
+    color: #fff;
+    border: 1px solid #cfd8e3;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .topad:hover {
+    border-color: #f90;
+  }
+
+  .shield {
+    flex: none;
+    width: 42px;
+    height: 50px;
+    animation: topad-pulse 0.8s ease-in-out infinite alternate;
+  }
+
+  .msg {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .msg strong {
+    color: #ffe600;
+    font-size: 17px;
+    line-height: 1.2;
+  }
+
+  .scanline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    color: #c9d3ea;
+    font-size: 12px;
+  }
+
+  .bar {
+    width: 120px;
+    height: 8px;
+    background: #2c3c6e;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .bar span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #ff1f3d;
+    transform-origin: left;
+    animation: topad-scan 2.4s ease-out infinite;
+  }
+
+  .threats {
+    color: #ff4d5e;
+    animation: topad-blink 1s steps(1) infinite;
+  }
+
+  .cta {
+    flex: none;
+    padding: 12px 16px;
+    background: linear-gradient(#3ee05a, #18a634);
+    color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 3px 0 #0d6e22;
+    font-size: 15px;
+    font-weight: 900;
+    animation: topad-pulse 0.8s ease-in-out infinite alternate;
+  }
+
+  /* Den lille «AdChoices»-trekanten ekte annonser har i hjørnet */
+  .choices {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 4px;
+    background: #fff;
+    color: #09f;
+    border-bottom-left-radius: 4px;
+    font-size: 10px;
+    line-height: 1;
+  }
+
+  @keyframes topad-pulse {
+    to {
+      transform: scale(1.06);
+    }
+  }
+
+  @keyframes topad-scan {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(0.73);
+    }
+  }
+
+  @keyframes topad-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .topad {
+      flex-wrap: wrap;
+    }
+
+    .cta {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shield,
+    .bar span,
+    .threats,
+    .cta {
+      animation: none;
+    }
+  }
+
+  /* ===== Layout ===== */
+  .cols {
+    display: grid;
+    grid-template-columns: 170px 1fr 170px;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .main {
+    min-width: 0;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #cfd8e3;
+    border-radius: 6px;
+  }
+
+  /* ===== Filinfo ===== */
+  .file {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e3e8ef;
+  }
+
+  .fi {
+    font-size: 44px;
+  }
+
+  .file h1 {
+    margin: 0;
+    font-size: 20px;
+    word-break: break-all;
+  }
+
+  .file p {
+    margin: 2px 0 0;
+    color: #667;
+  }
+
+  /* ===== Bannerannonse ===== */
+  .banner {
+    margin-bottom: 14px;
+    padding: 14px;
+    background: #111;
+    color: #0f0;
+    border: 1px solid #cfd8e3;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .banner:hover {
+    border-color: #f90;
+  }
+
+  .banner small {
+    display: block;
+    color: #666;
+    font-size: 9px;
+    text-align: right;
+  }
+
+  .blink {
+    font-weight: 900;
+    animation: blink 0.8s infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  /* ===== Info og hint ===== */
+  .info {
+    margin-top: 6px;
+    padding: 10px 14px;
+    background: #f5f8fc;
+    border-radius: 6px;
+  }
+
+  .info h3 {
+    margin: 0 0 4px;
+    font-size: 14px;
+  }
+
+  .info p {
+    margin: 0;
+    color: #556;
+  }
+
+  .hintrow {
+    color: #778;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .hintrow a {
+    color: #07f;
+    text-decoration: underline;
+  }
+
+  .hinttxt {
+    padding: 10px;
+    background: #fff8d6;
+    border: 1px solid #e6d27a;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  /* ===== Responsivt ===== */
+  @media (max-width: 850px) {
+    .cols {
+      grid-template-columns: 1fr;
+    }
+
+    .side {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+  }
+</style>

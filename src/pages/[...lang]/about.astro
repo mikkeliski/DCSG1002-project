@@ -1,0 +1,30 @@
+---
+import Global from '@layouts/Global.astro'
+import Banner from '@components/Banner.astro'
+import { fill, langParams, localePath, useTranslations } from '@i18n/utils';
+
+export function getStaticPaths() {
+  return langParams.map((params) => ({ params }));
+}
+
+const lang = Astro.currentLocale;
+const t = useTranslations(lang).about;
+const links = { learn: localePath(lang, '/learn'), quiz: localePath(lang, '/quiz') };
+---
+<Global title={t.title}>
+  <Banner title={t.title}>
+    <p>{t.lead}</p>
+  </Banner>
+  <div class="wrap">
+    <h1>{t.whatTitle}</h1>
+    <p>{t.whatText}</p>
+    <h1>{t.howTitle}</h1>
+    <h2>{t.testTitle}</h2>
+    <p>{t.testText}</p>
+    <h2>{t.learnTitle}</h2>
+    <p set:html={fill(t.learnHtml, links)} />
+    <h2>{t.quizTitle}</h2>
+    <p set:html={fill(t.quizHtml, links)} />
+  </div>
+</Global>
+

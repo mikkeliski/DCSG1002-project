@@ -1,0 +1,61 @@
+---
+import { traps, trapAttrs } from '@data/traps';
+import { useTranslations } from '@i18n/utils';
+
+interface Props {
+  delay?: number;
+}
+
+const { delay = 3500 } = Astro.props;
+const t = useTranslations(Astro.currentLocale).fildeling.virus;
+---
+
+<div class="alertpop" id="virus-alert" data-delay={delay} hidden>
+  <b>{t.title}</b>
+  <p>{t.text}</p>
+  <button {...trapAttrs(traps.virusPopup, Astro.currentLocale)}>{t.remove}</button>
+  <button class="x" data-close>{t.close}</button>
+</div>
+
+<script>
+  const box = document.getElementById('virus-alert')!;
+
+  setTimeout(() => (box.hidden = false), Number(box.dataset.delay));
+
+  box.querySelector('[data-close]')!.addEventListener('click', () => {
+    box.hidden = true;
+  });
+</script>
+
+<style>
+  .alertpop {
+    margin-bottom: 12px;
+    padding: 12px;
+    background: #fff;
+    border: 3px solid #d00;
+    border-radius: 6px;
+    color: #d00;
+    text-align: center;
+  }
+
+  p {
+    margin: 4px 0 10px;
+    color: #222;
+  }
+
+  button {
+    padding: 8px 14px;
+    background: #d00;
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  button.x {
+    margin-left: 6px;
+    background: #ddd;
+    color: #444;
+  }
+</style>

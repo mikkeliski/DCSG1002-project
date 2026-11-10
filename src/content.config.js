@@ -2,13 +2,16 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { file } from 'astro/loaders';
 
+// Tekst som finnes på begge språk: { no: '…', en: '…' }
+const localized = z.object({ no: z.string(), en: z.string() });
+
 const resourceTypes = defineCollection({
   loader: file('src/data/resourceTypes.yaml'),
   schema: z.object({
-    id: z.enum(['mods', 'modpacks', 'texturepacks']),
+    id: z.enum(['mods']),
     order: z.number(),
-    label: z.string(),
-    description: z.string(),
+    label: localized,
+    description: localized,
   }),
 });
 
@@ -22,24 +25,16 @@ const mods = defineCollection({
   }),
 });
 
-const modpacks = defineCollection({
-  loader: file('src/data/modpacks.yaml'),
+const quiz = defineCollection({
+  loader: file('src/data/quiz.yaml'),
   schema: z.object({
-    id: z.string(), name: z.string(), icon: z.string(), color: z.string(),
-    loader: z.string(), gameVersion: z.string(), modpackVersion: z.string(),
-    size: z.string(), downloads: z.number(), stars: z.number(),
-    author: z.string(), date: z.string(), feat: z.array(z.string())
+    id: z.string(),
+    order: z.number(),
+    question: localized,
+    options: z.array(localized).min(2),
+    answer: z.number().int().min(0),
+    explanation: localized,
   }),
 });
 
-const texturepacks = defineCollection({
-  loader: file('src/data/texturepacks.yaml'),
-  schema: z.object({
-    id: z.string(), name: z.string(), icon: z.string(), color: z.string(),
-    gameVersion: z.string(), modVersion: z.string(), size: z.string(),
-    downloads: z.number(), stars: z.number(), author: z.string(),
-    date: z.string(), feat: z.array(z.string())
-  }),
-});
-
-export const collections = { resourceTypes, mods, modpacks, texturepacks };
+export const collections = { resourceTypes, mods, quiz };

@@ -1,0 +1,150 @@
+---
+import { getCollection } from 'astro:content';
+import { fill, getLang, localePath, useTranslations } from '@i18n/utils';
+
+const lang = getLang(Astro.currentLocale);
+const t = useTranslations(lang).quiz;
+const questions = (await getCollection('quiz')).sort((a, b) => a.data.order - b.data.order);
+const total = questions.length;
+---
+
+{/* Tekstene skriptet trenger, ligger i data-attributter på riktig språk */}
+<div
+  class="quiz"
+  id="quiz"
+  data-correct={t.correct}
+  data-wrong={t.wrong}
+  data-high={t.scoreHigh}
+  data-mid={t.scoreMid}
+  data-low={t.scoreLow}
+>
+  {
+    questions.map(({ data: q }, i) => (
+      <div class="q" data-answer={q.answer} hidden={i > 0}>
+        <small>{fill(t.progress, { n: i + 1, total })}</small>
+        <h4>{q.question[lang]}</h4>
+        {q.options.map((option) => (
+          <button class="opt" type="button">
+            {option[lang]}
+          </button>
+        ))}
+        <div class="exp" hidden>
+          <span class="verdict"></span> {q.explanation[lang]}
+          <br />
+          <button class="btn next" type="button">
+            {i === total - 1 ? t.seeResult : t.next}
+          </button>
+        </div>
+      </div>
+    ))
+  }
+
+  <div class="final" hidden>
+    <div class="big" id="quiz-score"></div>
+    <p id="quiz-msg"></p>
+    <a class="btn" href={localePath(lang, '/mods')}>{t.another}</a>
+  </div>
+</div>
+
+<script>
+  const quiz = document.getElementById('quiz')!;
+  const text = quiz.dataset;
+  const steps = [...quiz.querySelectorAll<HTMLElement>('.q')];
+  const final = quiz.querySelector<HTMLElement>('.final')!;
+  let score = 0;
+
+  function showResult() {
+    final.hidden = false;
+    document.getElementById('quiz-score')!.textContent = `${score} / ${steps.length}`;
+    document.getElementById('quiz-msg')!.textContent =
+      (score >= 5 ? text.high : score >= 3 ? text.mid : text.low) ?? '';
+  }
+
+  steps.forEach((step, i) => {
+    const correct = Number(step.dataset.answer);
+    const options = [...step.querySelectorAll<HTMLButtonElement>('.opt')];
+    const exp = step.querySelector<HTMLElement>('.exp')!;
+
+    options.forEach((option, k) => {
+      option.addEventListener('click', () => {
+        options.forEach((b, n) => {
+          b.disabled = true;
+          if (n === correct) b.classList.add('good');
+          else if (n === k) b.classList.add('bad');
+        });
+        if (k === correct) score++;
+        exp.querySelector('.verdict')!.textContent = (k === correct ? text.correct : text.wrong) ?? '';
+        exp.hidden = false;
+      });
+    });
+
+    exp.querySelector('.next')!.addEventListener('click', () => {
+      step.hidden = true;
+      const next = steps[i + 1];
+      if (next) next.hidden = false;
+      else showResult();
+    });
+  });
+</script>
+
+<style>
+  .q {
+    margin: 14px 0;
+    padding: 14px;
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+
+  .q small {
+    color: var(--mute);
+  }
+
+  h4 {
+    margin: 0 0 10px;
+  }
+
+  .opt {
+    display: block;
+    width: 100%;
+    margin: 6px 0;
+    padding: 10px 12px;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 15px;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .opt:hover {
+    border-color: var(--green);
+  }
+
+  .opt.good {
+    background: #12331f;
+    border-color: var(--green);
+  }
+
+  .opt.bad {
+    background: #3a1c1c;
+    border-color: #e05555;
+  }
+
+  .exp {
+    margin-top: 8px;
+    color: #c3cad4;
+    font-size: 14px;
+  }
+
+  .next {
+    margin-top: 10px;
+  }
+
+  .big {
+    color: var(--green);
+    font-size: 42px;
+    font-weight: 800;
+  }
+</style>
