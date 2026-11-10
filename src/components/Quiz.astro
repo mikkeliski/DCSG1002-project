@@ -1,0 +1,141 @@
+---
+import { getCollection } from 'astro:content';
+
+const questions = await getCollection('quiz');
+const total = questions.length;
+---
+
+<div class="quiz" id="quiz">
+  {
+    questions.map(({ data: q }, i) => (
+      <div class="q" data-answer={q.answer} hidden={i > 0}>
+        <small>Spørsmål {i + 1} av {total}</small>
+        <h4>{q.question}</h4>
+        {q.options.map((option) => (
+          <button class="opt" type="button">
+            {option}
+          </button>
+        ))}
+        <div class="exp" hidden>
+          <span class="verdict"></span> {q.explanation}
+          <br />
+          <button class="btn next" type="button">
+            {i === total - 1 ? 'Se resultat' : 'Neste'}
+          </button>
+        </div>
+      </div>
+    ))
+  }
+
+  <div class="final" hidden>
+    <div class="big" id="quiz-score"></div>
+    <p id="quiz-msg"></p>
+    <a class="btn" href="/mods">Last ned en annen mod</a>
+  </div>
+</div>
+
+<script>
+  const quiz = document.getElementById('quiz')!;
+  const steps = [...quiz.querySelectorAll<HTMLElement>('.q')];
+  const final = quiz.querySelector<HTMLElement>('.final')!;
+  let score = 0;
+
+  function showResult() {
+    final.hidden = false;
+    document.getElementById('quiz-score')!.textContent = `${score} / ${steps.length}`;
+    document.getElementById('quiz-msg')!.textContent =
+      score >= 5
+        ? 'Flott! Du er godt rustet mot falske nedlastingsknapper.'
+        : score >= 3
+          ? 'Bra jobbet, men les gjennom tipsene over en gang til.'
+          : 'Les tipsene over og prøv øvingssiden en gang til.';
+  }
+
+  steps.forEach((step, i) => {
+    const correct = Number(step.dataset.answer);
+    const options = [...step.querySelectorAll<HTMLButtonElement>('.opt')];
+    const exp = step.querySelector<HTMLElement>('.exp')!;
+
+    options.forEach((option, k) => {
+      option.addEventListener('click', () => {
+        options.forEach((b, n) => {
+          b.disabled = true;
+          if (n === correct) b.classList.add('good');
+          else if (n === k) b.classList.add('bad');
+        });
+        if (k === correct) score++;
+        exp.querySelector('.verdict')!.textContent = k === correct ? 'Riktig!' : 'Ikke helt.';
+        exp.hidden = false;
+      });
+    });
+
+    exp.querySelector('.next')!.addEventListener('click', () => {
+      step.hidden = true;
+      const next = steps[i + 1];
+      if (next) next.hidden = false;
+      else showResult();
+    });
+  });
+</script>
+
+<style>
+  .q {
+    margin: 14px 0;
+    padding: 14px;
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+  }
+
+  .q small {
+    color: var(--mute);
+  }
+
+  h4 {
+    margin: 0 0 10px;
+  }
+
+  .opt {
+    display: block;
+    width: 100%;
+    margin: 6px 0;
+    padding: 10px 12px;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 15px;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .opt:hover {
+    border-color: var(--green);
+  }
+
+  .opt.good {
+    background: #12331f;
+    border-color: var(--green);
+  }
+
+  .opt.bad {
+    background: #3a1c1c;
+    border-color: #e05555;
+  }
+
+  .exp {
+    margin-top: 8px;
+    color: #c3cad4;
+    font-size: 14px;
+  }
+
+  .next {
+    margin-top: 10px;
+  }
+
+  .big {
+    color: var(--green);
+    font-size: 42px;
+    font-weight: 800;
+  }
+</style>

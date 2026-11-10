@@ -1,0 +1,45 @@
+---
+// Etterligner nettleserens statuslinje: viser data-url når musepekeren er over en lenke.
+---
+
+<div id="statusbar" aria-hidden="true"></div>
+
+<script>
+  const bar = document.getElementById('statusbar')!;
+
+  document.addEventListener('mouseover', (e) => {
+    const link = (e.target as Element).closest<HTMLElement>('[data-url]');
+    if (link) bar.textContent = link.dataset.url ?? '';
+    bar.classList.toggle('show', link !== null);
+  });
+
+  document.documentElement.addEventListener('mouseleave', () => {
+    bar.classList.remove('show');
+  });
+</script>
+
+<style>
+  #statusbar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 9999;
+    max-width: 80vw;
+    padding: 3px 10px;
+    background: #f1f3f4;
+    color: #222;
+    font: 12px system-ui;
+    border: 1px solid #c9ccd0;
+    border-left: 0;
+    border-bottom: 0;
+    border-radius: 0 6px 0 0;
+    opacity: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #statusbar.show {
+    opacity: 1;
+  }
+</style>

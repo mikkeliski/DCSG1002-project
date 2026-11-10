@@ -1,0 +1,146 @@
+---
+import { traps, trapAttrs } from '@data/traps';
+
+interface Props {
+  /** Adressen den ekte knappen viser i statuslinjen. */
+  url: string;
+  size: string;
+  /** Hvor den ekte knappen sender eleven. */
+  next: string;
+  countdown?: number;
+}
+
+const { url, size, next, countdown = 5 } = Astro.props;
+
+const fakes = [
+  { variant: 'green', label: '⬇ START NEDLASTING', sub: 'Rask nedlasting · Anbefalt', trap: traps.greenButton },
+  { variant: 'orange', label: 'DOWNLOAD NOW', sub: 'Annonse', adTag: true, trap: traps.orangeButton },
+  { variant: 'grey', label: '⚡ Premium-nedlasting – 10x raskere', trap: traps.premium },
+  { variant: 'blue', label: '▶ Se video først (kodek kreves)', trap: traps.codec },
+];
+---
+
+<p class="timer">
+  Nedlastingen din er klar om <b data-countdown={countdown}>{countdown}</b> sekunder…
+</p>
+
+<div class="btnzone" id="download-zone">
+  {
+    fakes.map((b) => (
+      <a class:list={['dl', `dl-${b.variant}`]} {...trapAttrs(b.trap)}>
+        <span>{b.label}</span>
+        {b.sub && <small class:list={{ adtag: b.adTag }}>{b.sub}</small>}
+      </a>
+    ))
+  }
+  {/* Ingen href med vilje: da avslører ikke nettleserens egen statuslinje svaret */}
+  <a class="dl dl-real" data-real data-url={url} data-next={next}>
+    <span>Last ned ({size})</span>
+  </a>
+</div>
+
+<script>
+  // Bland rekkefølgen på knappene hver gang siden lastes (Fisher–Yates)
+  const zone = document.getElementById('download-zone')!;
+  const buttons = [...zone.children];
+  for (let i = buttons.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [buttons[i], buttons[j]] = [buttons[j], buttons[i]];
+  }
+  zone.append(...buttons);
+
+  // Nedtelling
+  const cd = document.querySelector<HTMLElement>('[data-countdown]')!;
+  let n = Number(cd.dataset.countdown);
+  const timer = setInterval(() => {
+    n--;
+    cd.textContent = String(Math.max(n, 0));
+    if (n <= 0) clearInterval(timer);
+  }, 1000);
+
+  // Den ekte knappen
+  const real = zone.querySelector<HTMLElement>('[data-real]')!;
+  real.addEventListener('click', (e) => {
+    e.preventDefault();
+    location.href = real.dataset.next!;
+  });
+</script>
+
+<style>
+  .timer {
+    margin: 6px 0 14px;
+    color: #c00;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .btnzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0 18px;
+  }
+
+  .dl {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 440px;
+    padding: 16px;
+    border-radius: 6px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .dl:hover {
+    filter: brightness(1.08);
+  }
+
+  .dl small {
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.9;
+  }
+
+  .dl-green {
+    padding: 22px;
+    background: linear-gradient(#3ee05a, #18a634);
+    font-size: 22px;
+  }
+
+  .dl-orange {
+    background: linear-gradient(#ffa73c, #f06a00);
+  }
+
+  .dl-real {
+    max-width: 300px;
+    padding: 12px;
+    background: #0070ff;
+    font-size: 16px;
+  }
+
+  .dl-grey {
+    background: #555;
+    font-size: 15px;
+  }
+
+  .dl-blue {
+    background: linear-gradient(#5aa5ff, #2d6fe0);
+    font-size: 15px;
+  }
+
+  .adtag {
+    margin-top: 3px;
+    padding: 0 5px;
+    background: #fff;
+    color: #888;
+    border-radius: 3px;
+    font-size: 9px !important;
+  }
+</style>

@@ -1,0 +1,54 @@
+# answer er indeksen (fra 0) til riktig alternativ i options
+- id: 'les-adressen'
+  question: 'Du skal laste ned en mod, og en stor grønn knapp sier «START NEDLASTING». Hva gjør du først?'
+  options:
+    - 'Klikker, den er jo stor og tydelig'
+    - 'Holder musepekeren over den og leser adressen'
+    - 'Skrur av antivirus så nedlastingen går raskere'
+  answer: 1
+  explanation: 'Adressen nederst i nettleseren viser hvor lenken faktisk går. Stor og tydelig betyr ikke trygg.'
+
+- id: 'filtype'
+  question: 'Hvilken filtype forventer du for en Minecraft-mod?'
+  options:
+    - '.exe'
+    - '.jar'
+    - '.bat'
+  answer: 1
+  explanation: 'Moder er .jar-filer. Kjørbare filer som .exe og .bat skal du ikke få når du leter etter en mod.'
+
+- id: 'virusvarsel'
+  question: 'En side viser «7 virus funnet på PC-en din! Klikk her». Hva betyr det?'
+  options:
+    - 'Du må skanne umiddelbart'
+    - 'Det er et falskt varsel, nettsider kan ikke skanne PC-en din'
+    - 'Nettleseren din er ødelagt'
+  answer: 1
+  explanation: 'Dette er en skremmetaktikk. Lukk fanen og ikke klikk på noe i varselet.'
+
+- id: 'annonse'
+  question: 'Hva betyr den lille teksten «Annonse» ved siden av en knapp?'
+  options:
+    - 'Knappen er laget av sidens eier og er trygg'
+    - 'Det er reklame, og ikke den ekte nedlastingen'
+    - 'Filen er verifisert'
+  answer: 1
+  explanation: 'Annonser kan se ut som nedlastingsknapper, men de leder til tredjeparter.'
+
+- id: 'kodek'
+  question: 'Siden sier «Du må installere en kodek / nedlastingsbehandler for å laste ned». Hva gjør du?'
+  options:
+    - 'Installerer den, det går raskt'
+    - 'Avslutter og finner en annen kilde'
+    - 'Gir den administratortilgang'
+  answer: 1
+  explanation: 'En vanlig fil trenger ikke ekstra programvare. Slike krav er et tydelig varselstegn.'
+
+- id: 'kilde'
+  question: 'Hva er tryggest?'
+  options:
+    - 'Laste ned fra modens offisielle side'
+    - 'Laste ned fra den første lenken i et søk'
+    - 'Laste ned fra en lenke i en tilfeldig kommentar'
+  answer: 0
+  explanation: 'Gå til kilden. Jo færre mellomsider, desto mindre risiko.'

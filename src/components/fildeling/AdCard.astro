@@ -1,0 +1,76 @@
+---
+import { trapAttrs, type Trap } from '@data/traps';
+
+interface Props {
+  icon: string;
+  title: string;
+  text: string;
+  cta: string;
+  color?: 'red' | 'blue' | 'pink';
+  /** Falsk lenke: klikk åpner forklaringen i TrapModal. */
+  trap?: Trap;
+  /** Brukes i stedet for trap: klikk åpner SnapPopup. */
+  popupUrl?: string;
+}
+
+const { icon, title, text, cta, color = 'red', trap, popupUrl } = Astro.props;
+const attrs = trap ? trapAttrs(trap) : { 'data-popup': true, 'data-url': popupUrl };
+---
+
+<div class="ad" {...attrs}>
+  <small>Annonse</small>
+  <div class="big">{icon}</div>
+  <b>{title}</b>
+  <p>{text}</p>
+  <span class:list={['gbtn', color]}>{cta}</span>
+</div>
+
+<style>
+  .ad {
+    margin-bottom: 14px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #cfd8e3;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .ad:hover {
+    border-color: #f90;
+  }
+
+  small {
+    display: block;
+    text-align: right;
+    color: #aaa;
+    font-size: 9px;
+  }
+
+  .big {
+    font-size: 40px;
+  }
+
+  p {
+    margin: 4px 0 8px;
+    font-size: 12px;
+  }
+
+  .gbtn {
+    display: inline-block;
+    padding: 6px 10px;
+    background: #e22;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .gbtn.blue {
+    background: #07f;
+  }
+
+  .gbtn.pink {
+    background: #e0237a;
+  }
+</style>

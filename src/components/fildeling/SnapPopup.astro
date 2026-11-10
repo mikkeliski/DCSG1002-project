@@ -1,0 +1,149 @@
+---
+import { Image } from 'astro:assets';
+import Modal from '@components/fildeling/Modal.astro';
+import { SINGLE_AD as ad } from '@data/singleAd';
+import { traps, trapAttrs } from '@data/traps';
+---
+
+<Modal id="snap-modal">
+  <div class="sbox">
+    <button class="sx" data-close aria-label="Lukk">✕</button>
+    <div class="sphoto">
+      {/* loading="lazy" er standard: bildet hentes først når popupen vises */}
+      <Image src={ad.image} alt="" />
+      <span class="son">● Pålogget nå</span>
+    </div>
+    <h2>{ad.name}, {ad.age}</h2>
+    <p class="sdist">📍 {ad.distance}</p>
+    <p class="smsg">«Hei! Jeg er alene hjemme i kveld 😘 Legg meg til på Snapchat så snakkes vi!»</p>
+    <div class="ssnap">👻 Snapchat: <b>@{ad.snap}</b></div>
+    <a class="sadd" {...trapAttrs(traps.snapchat)}>LEGG TIL PÅ SNAPCHAT</a>
+    <small class="sfoot">Annonse · 18+ · Over 2 300 singler online</small>
+  </div>
+</Modal>
+
+<script>
+  import { store } from '@lib/store';
+
+  const popup = document.getElementById('snap-modal')!;
+
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('[data-popup]')) return;
+    e.preventDefault();
+    popup.hidden = false;
+    store.set('fakeClicks', store.get('fakeClicks', 0) + 1);
+  });
+
+  popup.querySelector('[data-close]')!.addEventListener('click', () => {
+    popup.hidden = true;
+  });
+</script>
+
+<style>
+  .sbox {
+    position: relative;
+    width: 340px;
+    max-width: 92vw;
+    max-height: 96vh;
+    padding-bottom: 16px;
+    background: #fff;
+    border: 3px solid #ff2d87;
+    border-radius: 14px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .sx {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 0;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .sphoto {
+    position: relative;
+    height: min(280px, 36vh);
+    background: #222;
+    overflow: hidden;
+  }
+
+  .sphoto img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+  }
+
+  .son {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    padding: 3px 8px;
+    background: rgba(0, 0, 0, 0.65);
+    color: #4f4;
+    font-size: 12px;
+    border-radius: 999px;
+  }
+
+  h2 {
+    margin: 12px 0 0;
+    font-size: 24px;
+  }
+
+  .sdist {
+    margin: 0;
+    color: #777;
+    font-size: 13px;
+  }
+
+  .smsg {
+    margin: 10px 16px;
+    padding: 10px;
+    background: #f1f1f1;
+    border-radius: 12px;
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .ssnap {
+    margin: 8px 16px;
+    padding: 9px;
+    background: #fffc00;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  .sadd {
+    display: block;
+    margin: 10px 16px 6px;
+    padding: 12px;
+    background: #fffc00;
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 8px;
+    font-weight: 900;
+    cursor: pointer;
+    animation: pulse 0.9s infinite;
+  }
+
+  @keyframes pulse {
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  .sfoot {
+    color: #aaa;
+    font-size: 10px;
+  }
+</style>

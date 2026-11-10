@@ -63,7 +63,7 @@ const downloadUrl = `https://modhavn.example/${type.id}/${item.id}/download`;
 
       <aside>
         <div class="box">
-          <a class="btn block" href={`/download?id=${item.id}`} 
+          <a class="btn block" href={`/download/${type.id}/${item.id}`} 
             data-url={downloadUrl}>⬇ Last ned</a>
           <dl>
             <dt>Versjon</dt>

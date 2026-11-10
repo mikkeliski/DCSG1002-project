@@ -1,0 +1,276 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import { getCollection } from 'astro:content';
+import FilDeling from '@layouts/FilDeling.astro';
+import AdCard from '@components/fildeling/AdCard.astro';
+import DownloadButtons from '@components/fildeling/DownloadButtons.astro';
+import SnapPopup from '@components/fildeling/SnapPopup.astro';
+import TrapModal from '@components/fildeling/TrapModal.astro';
+import VirusAlert from '@components/fildeling/VirusAlert.astro';
+import { SINGLE_AD } from '@data/singleAd';
+import { traps, trapAttrs } from '@data/traps';
+
+// Én ferdig side per ressurs: /download/mods/xray-ultimate osv.
+export const getStaticPaths = (async () => {
+  const resourceTypes = await getCollection('resourceTypes');
+
+  const paths = await Promise.all(
+    resourceTypes.map(async ({ data: type }) => {
+      const entries = await getCollection(type.id);
+
+      return entries.map(({ data }) => ({
+        params: { resourceType: type.id, id: data.id },
+        props: { type, item: data },
+      }));
+    })
+  );
+
+  return paths.flat();
+}) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { type, item } = Astro.props;
+
+const version = 'modpackVersion' in item ? item.modpackVersion : item.modVersion;
+const ext = type.id === 'mods' ? 'jar' : 'zip';
+const fileName = `${item.id}-${version}.${ext}`;
+const realUrl = `https://download.fildeling.example/file/k3x9q2/${fileName}`;
+---
+
+<FilDeling title={`FilDeling – Last ned ${fileName}`}>
+  <div slot="banner" class="topad" {...trapAttrs(traps.virusBanner)}>
+    ⚠️ <b>ADVARSEL:</b> PC-en din kan være infisert med 7 virus! <u>Klikk her for gratis skanning</u>
+  </div>
+
+  <div class="fw cols">
+    <aside class="side">
+      <AdCard
+        icon="🎁"
+        title="GRATULERER!"
+        text="Du er besøkende nr. 1 000 000!"
+        cta="KREV GEVINST"
+        trap={traps.prize}
+      />
+      <AdCard
+        icon="☕"
+        title="Java må oppdateres"
+        text="Din versjon er utdatert og farlig."
+        cta="OPPDATER"
+        color="blue"
+        trap={traps.javaUpdate}
+      />
+    </aside>
+
+    <main class="main">
+      <div class="file">
+        <div class="fi">📦</div>
+        <div>
+          <h1>{fileName}</h1>
+          <p>{item.size} · Lastet opp av {item.author} · {item.date}</p>
+        </div>
+      </div>
+
+      <VirusAlert />
+      <DownloadButtons url={realUrl} size={item.size} next="/result" />
+
+      <div class="banner" {...trapAttrs(traps.vpnBanner)}>
+        <small>Annonse</small>
+        <span class="blink">⬇ DOWNLOAD – 100% GRATIS VPN – DOWNLOAD ⬇</span>
+      </div>
+
+      <div class="info">
+        <h3>Om filen</h3>
+        <p>Filtype: .{ext} · Størrelse: {item.size} · Delt via lenke fra modhavn.example</p>
+      </div>
+
+      <p class="hintrow">Står du fast? <a href="#" id="hint">Vis hint</a></p>
+      <p class="hinttxt" id="hinttxt" hidden>
+        Hint: Hold musepekeren over knappene og les adressen nederst til venstre. Den ekte filen
+        ender på <b>.{ext}</b>, ligger på FilDelings eget domene, og knappen har ingen
+        «annonse»-merking.
+      </p>
+    </main>
+
+    <aside class="side">
+      <AdCard
+        icon="🔥"
+        title="Single i ditt område"
+        text="Vil chatte nå?"
+        cta="START"
+        color="pink"
+        popupUrl={SINGLE_AD.adUrl}
+      />
+      <AdCard
+        icon="🧰"
+        title="1000 mods på en gang!"
+        text="Last ned alle mods gratis"
+        cta="DOWNLOAD"
+        trap={traps.modPack}
+      />
+    </aside>
+  </div>
+
+  <SnapPopup />
+  <TrapModal />
+</FilDeling>
+
+<script>
+  import { store } from '@lib/store';
+
+  store.set('fakeClicks', store.get('fakeClicks', 0));
+  // Så «Prøv igjen» på resultatsiden kommer tilbake hit
+  store.set('lastDownload', location.pathname);
+
+  document.getElementById('hint')!.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.getElementById('hinttxt')!.hidden = false;
+    store.set('hint', true);
+  });
+</script>
+
+<style>
+  /* ===== Toppbanner ===== */
+  .topad {
+    display: block;
+    padding: 10px;
+    background: #ffe600;
+    color: #900;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    animation: flash 1s infinite;
+  }
+
+  @keyframes flash {
+    50% {
+      background: #ff5252;
+      color: #fff;
+    }
+  }
+
+  /* ===== Layout ===== */
+  .cols {
+    display: grid;
+    grid-template-columns: 170px 1fr 170px;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .main {
+    min-width: 0;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #cfd8e3;
+    border-radius: 6px;
+  }
+
+  /* ===== Filinfo ===== */
+  .file {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e3e8ef;
+  }
+
+  .fi {
+    font-size: 44px;
+  }
+
+  .file h1 {
+    margin: 0;
+    font-size: 20px;
+    word-break: break-all;
+  }
+
+  .file p {
+    margin: 2px 0 0;
+    color: #667;
+  }
+
+  /* ===== Bannerannonse ===== */
+  .banner {
+    margin-bottom: 14px;
+    padding: 14px;
+    background: #111;
+    color: #0f0;
+    border: 1px solid #cfd8e3;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .banner:hover {
+    border-color: #f90;
+  }
+
+  .banner small {
+    display: block;
+    color: #666;
+    font-size: 9px;
+    text-align: right;
+  }
+
+  .blink {
+    font-weight: 900;
+    animation: blink 0.8s infinite;
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  /* ===== Info og hint ===== */
+  .info {
+    margin-top: 6px;
+    padding: 10px 14px;
+    background: #f5f8fc;
+    border-radius: 6px;
+  }
+
+  .info h3 {
+    margin: 0 0 4px;
+    font-size: 14px;
+  }
+
+  .info p {
+    margin: 0;
+    color: #556;
+  }
+
+  .hintrow {
+    color: #778;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .hintrow a {
+    color: #07f;
+    text-decoration: underline;
+  }
+
+  .hinttxt {
+    padding: 10px;
+    background: #fff8d6;
+    border: 1px solid #e6d27a;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+
+  /* ===== Responsivt ===== */
+  @media (max-width: 850px) {
+    .cols {
+      grid-template-columns: 1fr;
+    }
+
+    .side {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+  }
+</style>
